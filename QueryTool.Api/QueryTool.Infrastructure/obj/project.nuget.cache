@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "tZewOQm+7BU=",
+  "dgSpecHash": "S8CNVK84Q30=",
   "success": true,
-  "projectFilePath": "C:\\Users\\tamara.kuiper\\QueryToolv2\\QueryTool.Api\\QueryTool.Infrastructure\\QueryTool.Infrastructure.csproj",
+  "projectFilePath": "C:\\Users\\tamara.kuiper\\OneDrive - AssetMark, Inc\\Desktop\\QueryToolv2\\QueryTool.Api\\QueryTool.Infrastructure\\QueryTool.Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\tamara.kuiper\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\tamara.kuiper\\.nuget\\packages\\azure.identity\\1.11.3\\azure.identity.1.11.3.nupkg.sha512",

@@ -2269,11 +2269,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\tamara.kuiper\\QueryToolv2\\QueryTool.Api\\QueryTool.Core\\QueryTool.Core.csproj",
+      "projectUniqueName": "C:\\Users\\tamara.kuiper\\OneDrive - AssetMark, Inc\\Desktop\\QueryToolv2\\QueryTool.Api\\QueryTool.Core\\QueryTool.Core.csproj",
       "projectName": "QueryTool.Core",
-      "projectPath": "C:\\Users\\tamara.kuiper\\QueryToolv2\\QueryTool.Api\\QueryTool.Core\\QueryTool.Core.csproj",
+      "projectPath": "C:\\Users\\tamara.kuiper\\OneDrive - AssetMark, Inc\\Desktop\\QueryToolv2\\QueryTool.Api\\QueryTool.Core\\QueryTool.Core.csproj",
       "packagesPath": "C:\\Users\\tamara.kuiper\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\tamara.kuiper\\QueryToolv2\\QueryTool.Api\\QueryTool.Core\\obj\\",
+      "outputPath": "C:\\Users\\tamara.kuiper\\OneDrive - AssetMark, Inc\\Desktop\\QueryToolv2\\QueryTool.Api\\QueryTool.Core\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

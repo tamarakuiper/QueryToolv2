@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "frontend": "cd QueryTool.Frontend && npm run dev"
+  },
+  "devDependencies": {
+    "baseline-browser-mapping": "^2.10.31"
+  }
+}
