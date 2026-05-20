@@ -1,0 +1,24 @@
+{
+  "Version": 1,
+  "Hash": "g+xuhbeobZu8kCclB1+Vfg9Ts0NkGn6dEsY+JAP1+uU=",
+  "Source": "QueryTool.Infrastructure",
+  "BasePath": "_content/QueryTool.Infrastructure",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [
+    {
+      "Identity": "C:\\Users\\tamara.kuiper\\QueryToolv2\\QueryTool.Api\\QueryTool.Core\\QueryTool.Core.csproj",
+      "Version": 2,
+      "Source": "QueryTool.Core",
+      "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
+      "AdditionalPublishProperties": "",
+      "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework",
+      "GetBuildAssetsTargets": "GetCurrentProjectBuildStaticWebAssetItems",
+      "AdditionalBuildProperties": "",
+      "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework"
+    }
+  ],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

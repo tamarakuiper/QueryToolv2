@@ -1,0 +1,35 @@
+{
+  "Version": 1,
+  "Hash": "Zzq0rrUEeRgiB7ktG0sEnFbCY3+QpnGpKJBbHUWku3U=",
+  "Source": "QueryTool.Api",
+  "BasePath": "_content/QueryTool.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [
+    {
+      "Identity": "C:\\Users\\tamara.kuiper\\QueryToolv2\\QueryTool.Api\\QueryTool.Core\\QueryTool.Core.csproj",
+      "Version": 2,
+      "Source": "QueryTool.Core",
+      "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
+      "AdditionalPublishProperties": "",
+      "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework",
+      "GetBuildAssetsTargets": "GetCurrentProjectBuildStaticWebAssetItems",
+      "AdditionalBuildProperties": "",
+      "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework"
+    },
+    {
+      "Identity": "C:\\Users\\tamara.kuiper\\QueryToolv2\\QueryTool.Api\\QueryTool.Infrastructure\\QueryTool.Infrastructure.csproj",
+      "Version": 2,
+      "Source": "QueryTool.Infrastructure",
+      "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
+      "AdditionalPublishProperties": "",
+      "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework",
+      "GetBuildAssetsTargets": "GetCurrentProjectBuildStaticWebAssetItems",
+      "AdditionalBuildProperties": "",
+      "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework"
+    }
+  ],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

@@ -1,0 +1,6 @@
+@QueryTool.Core_HostAddress = http://localhost:5028
+
+GET {{QueryTool.Core_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
