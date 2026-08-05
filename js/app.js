@@ -12,6 +12,59 @@
   const $$ = (sel, ctx) => Array.from((ctx || document).querySelectorAll(sel));
   const go = (hash) => { window.location.hash = hash; };
 
+  // Change this value to the secret word or phrase you want to use.
+  const QUERY_EASTER_EGG = 'hackathon';
+  const isQueryEasterEgg = (value) => String(value || '').trim().toLowerCase() === QUERY_EASTER_EGG.toLowerCase();
+
+  let rickrollMusic = null;
+
+function startRickrollMusic(restart = false) {
+  if (!rickrollMusic) {
+    rickrollMusic = document.createElement('video');
+    rickrollMusic.id = 'rickrollMusic';
+    rickrollMusic.src = 'assets/rickroll.mp4';
+    rickrollMusic.loop = true;
+    rickrollMusic.preload = 'auto';
+    rickrollMusic.playsInline = true;
+    rickrollMusic.setAttribute('aria-hidden', 'true');
+
+    // Keep the video offscreen while allowing its audio to play.
+    Object.assign(rickrollMusic.style, {
+      position: 'fixed',
+      left: '-9999px',
+      top: '-9999px',
+      width: '1px',
+      height: '1px',
+      opacity: '0',
+      pointerEvents: 'none'
+    });
+
+    document.body.appendChild(rickrollMusic);
+  }
+
+  if (restart) {
+    try {
+      rickrollMusic.currentTime = 0;
+    } catch (error) {
+      // Metadata may not be loaded yet. Playback can still begin.
+    }
+  }
+
+  return rickrollMusic.play();
+}
+
+function stopRickrollMusic() {
+  if (!rickrollMusic) return;
+
+  rickrollMusic.pause();
+
+  try {
+    rickrollMusic.currentTime = 0;
+  } catch (error) {
+    // Safe to ignore if the media has not loaded yet.
+  }
+}
+
   /* ---------- toasts ---------- */
   function ensureToastHost() {
     let host = document.getElementById('toastHost');
@@ -101,7 +154,9 @@
     const user = QT.currentUser();
     const hash = window.location.hash.replace(/^#\/?/, '');
     const [view, ...rest] = hash.split('/');
-
+    if (view !== 'rickroll') {
+       stopRickrollMusic();
+    }
     if (!user) return renderLogin();
     if (!App.currentFirmId) App.currentFirmId = restoreFirm(user);
     App.currentView = view || 'queries';
@@ -110,6 +165,7 @@
       case '': case 'queries': return renderQueries();
       case 'run': return renderRun(rest[0]);
       case 'assistant': return renderAssistant();
+      case 'rickroll': return renderRickroll();
       case 'schedules': return renderSchedules();
       case 'reports': return renderReports();
       case 'report': return renderReportDetail(rest[0]);
@@ -260,7 +316,6 @@
   /* ---------- queries list ---------- */
   function renderQueries() {
     const user = QT.currentUser();
-    const firm = QT.firmById(App.currentFirmId);
     const queries = QT.queriesForFirm(user, App.currentFirmId);
     const byCat = {};
     queries.forEach(q => { (byCat[q.category] = byCat[q.category] || []).push(q); });
@@ -272,6 +327,8 @@
           <p class="muted">${App.currentFirmId === 'all' ? '🌐 ' : ''}${esc(firmLabel(App.currentFirmId))} · ${queries.length} available to you</p>
         </div>
       </div>
+
+
       ${Object.keys(byCat).sort().map(cat => `
         <section class="cat">
           <h2 class="cat-title">${esc(cat)}</h2>
@@ -286,6 +343,123 @@
         </section>`).join('') || '<p class="muted">No queries are available for your groups in this firm.</p>'}
     </div>`);
     shell('queries', content);
+
+  }
+
+    function renderRickroll() {
+    const content = h(`
+      <div class="rickroll-page">
+        <div class="rickroll-card panel">
+          <span class="easter-egg-kicker">
+            Secret result unlocked
+          </span>
+
+          <h1>Never gonna give your query up.</h1>
+
+          <p class="muted">
+            You found the easter egg. Your reward is extremely
+            serious data governance training.
+          </p>
+
+          <div
+            class="rickroll-video"
+            style="position:relative; overflow:hidden; background:#111;"
+          >
+            <img
+              id="rickrollPreview"
+              src="https://media1.tenor.com/m/x8v1oNUOmg4AAAAd/rickroll-roll.gif"
+              alt="Animated Rick Astley preview"
+              loading="eager"
+              referrerpolicy="no-referrer"
+              style="
+                display:block;
+                width:100%;
+                height:100%;
+                object-fit:cover;
+              "
+            >
+          </div>
+
+          <p
+            id="rickrollMediaError"
+            class="error hidden"
+            role="alert"
+          ></p>
+
+          <div class="form-actions">
+            <a
+              class="btn primary"
+              id="rickrollBack"
+              href="#/assistant"
+            >
+              Back to SQL Assistant
+            </a>
+
+            <button
+              class="btn ghost"
+              id="rickrollMusicToggle"
+              type="button"
+            >
+              Pause music
+            </button>
+          </div>
+        </div>
+      </div>
+    `);
+
+    shell('assistant', content);
+
+    const musicButton = $('#rickrollMusicToggle');
+    const errorBox = $('#rickrollMediaError');
+
+    function updateMusicButton() {
+      const isPlaying =
+        rickrollMusic &&
+        !rickrollMusic.paused;
+
+      musicButton.textContent = isPlaying
+        ? 'Pause music'
+        : 'Play music';
+    }
+
+    // Try again in case the first playback request was blocked.
+    if (!rickrollMusic || rickrollMusic.paused) {
+      startRickrollMusic().catch(error => {
+        console.warn('Automatic music playback was blocked.', error);
+
+        errorBox.textContent =
+          'Your browser blocked automatic sound. Select “Play music” to begin.';
+
+        errorBox.classList.remove('hidden');
+        updateMusicButton();
+      });
+    }
+
+    musicButton.addEventListener('click', async () => {
+      errorBox.classList.add('hidden');
+      errorBox.textContent = '';
+
+      if (rickrollMusic && !rickrollMusic.paused) {
+        rickrollMusic.pause();
+        updateMusicButton();
+        return;
+      }
+
+      try {
+        await startRickrollMusic();
+      } catch (error) {
+        errorBox.textContent =
+          'The MP4 could not play. Confirm that assets/rickroll.mp4 exists and is valid.';
+
+        errorBox.classList.remove('hidden');
+      }
+
+      updateMusicButton();
+    });
+
+    $('#rickrollBack').addEventListener('click', stopRickrollMusic);
+
+    updateMusicButton();
   }
 
   /* ---------- query runner ---------- */
@@ -608,7 +782,22 @@
       $('#scheduleGen').addEventListener('click', scheduleGen);
     };
 
-    $('#askForm').addEventListener('submit', e => { e.preventDefault(); if ($('#ask').value.trim()) run($('#ask').value); });
+    $('#askForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const question = $('#ask').value.trim();
+      if (!question) return;
+      if (isQueryEasterEgg(question)) {
+        // Start during the form submission so the browser recognizes
+        // this as playback initiated by the user.
+        startRickrollMusic(true).catch(error => {
+          console.warn('Automatic music playback was blocked.', error);
+        });
+
+        go('/rickroll');
+        return;
+      }
+      run(question);
+    });
     $$('.ex', content).forEach(b => b.addEventListener('click', () => { $('#ask').value = b.dataset.q; run(b.dataset.q); }));
   }
 
