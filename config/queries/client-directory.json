@@ -1,0 +1,48 @@
+{
+  "id": "client-directory",
+  "version": 1,
+  "name": "Client Directory",
+  "description": "Clients for the firm filtered by service tier.",
+  "category": "Clients",
+  "enabled": true,
+  "scope": { "type": "global" },
+  "access": { "groups": ["operations", "compliance"], "adminOnly": false },
+  "execution": {
+    "dataset": "clients",
+    "timeoutSeconds": 30,
+    "maxRows": 5000,
+    "sql": "SELECT ClientId, ClientName, Email, Address, State, Tier, JoinDate FROM clients WHERE FirmId = @firmId AND Tier IN @tiers ORDER BY ClientName ASC"
+  },
+  "parameters": [
+    { "name": "firmId", "source": "firm", "type": "integer", "required": true, "hidden": true },
+    {
+      "name": "tiers",
+      "label": "Service tier",
+      "type": "string[]",
+      "control": "multiSelect",
+      "required": true,
+      "default": ["Platinum", "Gold", "Silver", "Bronze"],
+      "options": [
+        { "value": "Platinum", "label": "Platinum" },
+        { "value": "Gold", "label": "Gold" },
+        { "value": "Silver", "label": "Silver" },
+        { "value": "Bronze", "label": "Bronze" }
+      ]
+    }
+  ],
+  "result": {
+    "title": "Clients",
+    "defaultPageSize": 25,
+    "export": ["csv"],
+    "columns": [
+      { "field": "ClientId", "label": "Client ID", "type": "integer" },
+      { "field": "ClientName", "label": "Client", "type": "string", "pii": true },
+      { "field": "Email", "label": "Email", "type": "string", "pii": true },
+      { "field": "Address", "label": "Address", "type": "string", "pii": true },
+      { "field": "State", "label": "State", "type": "string" },
+      { "field": "Tier", "label": "Tier", "type": "badge" },
+      { "field": "JoinDate", "label": "Joined", "type": "date" }
+    ]
+  },
+  "tags": ["clients", "operations"]
+}

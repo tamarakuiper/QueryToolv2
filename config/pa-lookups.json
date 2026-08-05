@@ -1,0 +1,60 @@
+{
+  "_note": "Name→ID lookups for generating the systems-ready `insert into proposalaccount (...)` from a bulk enrollment. Mirrors the BES Lookup / 08-CompositeList tabs. Edit these maps if your firm's IDs differ. Composites without an ID resolve to NULL.",
+  "columns": [
+    "Revision_in", "SourceAccountID_in", "Description_vc", "AccountNumber_vc",
+    "Address1_vc", "City_vc", "State_vc", "Zip_vc",
+    "ProposalAccountTypeID_in", "FirmID_in", "Investment_fl", "CustodianID_in",
+    "Trigger_bt", "TriggerType_vc", "TriggerFloor_fl", "TriggerCeiling_fl",
+    "MinimumTrade_fl", "TaxOverlay_bt", "ProposalAccountStatusID_in", "TriggerTarget_fl",
+    "Withdrawal_bt", "WithdrawalStart_dt", "ProposalAccountWithdrawalFrequencyID_in", "WithdrawalAmount_fl",
+    "ProposalStrategyID_in", "ProposalStrategyVersionID_in", "ProposalCompositeID_in", "ProposalCompositeVersionID_in",
+    "CreatedBy_in", "CreatedOn_dt", "AdvisorID_in", "AIMAccountID_in", "IsProspectPhantom",
+    "WithdrawalAmountInitial_fl", "WithdrawalStart2_dt", "ProposalAccountWithdrawalFrequencyID2_in", "WithdrawalAmount2_fl",
+    "AnniversaryRebalance_bt", "EnableAllIncomeWithdrawals_bt", "AdvisorFeeScheduleID_in", "PlatformFeeScheduleID_in",
+    "Name_vc", "TaxHarvest_bt", "ProgramNameID_in", "StepoutAllowed_bt"
+  ],
+  "stringColumns": ["Description_vc", "AccountNumber_vc", "Address1_vc", "City_vc", "State_vc", "Zip_vc", "TriggerType_vc", "Name_vc", "Symbol_vc", "CUSIP_vc"],
+  "dateColumns": ["WithdrawalStart_dt", "WithdrawalStart2_dt", "AcquisitionDate_dt"],
+  "rawColumns": { "CreatedOn_dt": "getdate()" },
+  "custodianId": {
+    "Schwab Institutional": 1, "TD Ameritrade": 2, "Fidelity Investments": 3,
+    "Pershing": 4, "BBT Addvantage": 9, "Trade PMR": 10
+  },
+  "accountTypeId": {
+    "Individual Taxable Account": 1, "Joint Taxable Account": 2, "Other Taxable Account": 3,
+    "IRA/IRA Rollover": 4, "Tax-Exempt Account": 5, "Trust Account": 6, "Contributory IRA": 7,
+    "Inherited IRA": 8, "Roth Contributory IRA": 9, "SEP IRA": 10, "Joint Tenants In Common": 11
+  },
+  "withdrawalFrequencyId": { "Monthly": 4, "Quarterly": 1, "Semi-Annual": 2, "Annual": 3, "None": null },
+  "newProposalAccountStatusId": 1,
+  "defaultMinimumTrade": 0,
+  "pav": {
+    "columns": ["ProposalAccountID_in", "Revision_in", "Description_vc", "CreatedBy_in", "CreatedOn_dt", "ImpersonatingUserID_in", "IsRelevantToTrading_bt"],
+    "isRelevantToTrading": 1
+  },
+  "pash": {
+    "columns": ["ProposalAccountID_in", "ProposalAccountStatusID_in", "ProposalStatusID_in", "CreatedOn_dt", "CreatedBy_in", "ImpersonatingUserID_in"],
+    "proposalStatusId": 1
+  },
+  "submission": {
+    "schedulePath": "/proposal/bulk-enroll",
+    "signatureTitle": "Bulk Enrollment",
+    "activityTypeId": 1,
+    "activitySourceId": 1
+  },
+  "restrictionTypeId": { "Do Not Buy": 1, "Do Not Sell": 2, "Do Not Hold": 3 },
+  "carveOutColumns": ["ProposalAccountID_in", "Symbol_vc", "CUSIP_vc", "Description_vc", "AcquisitionDate_dt", "Quantity_fl"],
+  "restrictionColumns": ["ProposalAccountID_in", "Symbol_vc", "Name_vc", "ProposalAccountRestrictionTypeID_in"],
+  "composite": {
+    "TLFA 0/100":       { "ProposalCompositeID_in": 34855, "ProposalCompositeVersionID_in": 83180, "ProposalStrategyID_in": 2358, "ProposalStrategyVersionID_in": 4292 },
+    "TLFA 10/90":       { "ProposalCompositeID_in": 34846, "ProposalCompositeVersionID_in": 83184, "ProposalStrategyID_in": 2358, "ProposalStrategyVersionID_in": 4292 },
+    "TLFA 20/80":       { "ProposalCompositeID_in": 34833, "ProposalCompositeVersionID_in": 83181, "ProposalStrategyID_in": 2358, "ProposalStrategyVersionID_in": 4292 },
+    "TLFA 30/70":       { "ProposalCompositeID_in": 34847, "ProposalCompositeVersionID_in": 83185, "ProposalStrategyID_in": 2359, "ProposalStrategyVersionID_in": 4293 },
+    "TLFA 40/60":       { "ProposalCompositeID_in": 34837, "ProposalCompositeVersionID_in": 83182, "ProposalStrategyID_in": 2359, "ProposalStrategyVersionID_in": 4293 },
+    "TLFA 50/50":       { "ProposalCompositeID_in": 34848, "ProposalCompositeVersionID_in": 83186, "ProposalStrategyID_in": 2360, "ProposalStrategyVersionID_in": 4294 },
+    "TLFA 60/40":       { "ProposalCompositeID_in": 34838, "ProposalCompositeVersionID_in": 83183, "ProposalStrategyID_in": 2360, "ProposalStrategyVersionID_in": 4294 },
+    "TLFA 65/35":       { "ProposalCompositeID_in": 34850, "ProposalCompositeVersionID_in": 83187, "ProposalStrategyID_in": 2361, "ProposalStrategyVersionID_in": 4295 },
+    "TLFA 80/20":       { "ProposalCompositeID_in": 34851, "ProposalCompositeVersionID_in": 83188, "ProposalStrategyID_in": 2362, "ProposalStrategyVersionID_in": 4296 },
+    "TLFA Low Duration": { "ProposalCompositeID_in": 34856, "ProposalCompositeVersionID_in": 83189, "ProposalStrategyID_in": 2358, "ProposalStrategyVersionID_in": 4292 }
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "_note": "Bulk enrollment intake schema — mirrors the Adhesion Firm Bulk Enrollment Template 'Account Info' tab. Fields render and validate from this file. `requiredIf` encodes the conditional-required rules (Trigger / DCA / Periodic Withdrawal). Vestmark P1 (VAC/TAP) steps are intentionally excluded. Edit here to change the form — no code changes.",
+  "lookups": {
+    "yesno": ["Yes", "No"],
+    "drift": ["Ignore", "0.03", "0.05", "0.08", "0.13", "0.20", "0.30"],
+    "model": ["TLFA 0/100", "TLFA 10/90", "TLFA 20/80", "TLFA 30/70", "TLFA 40/60", "TLFA 50/50", "TLFA 60/40", "TLFA 65/35", "TLFA 80/20", "TLFA Low Duration", "DC Hill 92", "Confluence Large Cap Value"],
+    "accountType": ["N/A", "Individual Taxable Account", "Joint Taxable Account", "Other Taxable Account", "IRA/IRA Rollover", "Tax-Exempt Account", "Trust Account", "Contributory IRA", "Inherited IRA", "Roth Contributory IRA", "SEP IRA", "Joint Tenants In Common"],
+    "custodian": ["Schwab Institutional", "Fidelity Investments", "Pershing", "Trade PMR", "TD Ameritrade", "BBT Addvantage"],
+    "triggerType": ["none", "percent", "dollar"],
+    "dcaFrequency": ["Monthly", "Quarterly", "Annually"],
+    "withdrawalFrequency": ["None", "Monthly", "Quarterly", "Semi-Annual", "Annual"]
+  },
+  "sections": [
+    {
+      "title": "Client Account Information",
+      "note": "Account Number, Description and Client Name come from each selected account. These settings apply to every account in the batch.",
+      "fields": [
+        { "key": "advisor", "label": "Advisor", "type": "text", "required": true, "help": "Advisor on the account (determines visibility)" },
+        { "key": "driftSetting", "label": "Drift Setting", "type": "select", "lookup": "drift", "required": true, "help": "Composite tolerance band for the allocations (drives the composite Min/Max — not stored on the proposal account)" },
+        { "key": "model", "label": "Manager / ETF / Mutual Fund", "type": "select", "lookup": "model", "required": true, "help": "The SMA/UMA strategy / composite being implemented" },
+        { "key": "accountAllocations", "label": "Account Allocations", "type": "number", "required": true, "default": 1, "min": 0, "max": 1, "step": 0.01, "help": "Percent of the model, totalling 1 (100%)" },
+        { "key": "accountType", "label": "Account Type", "type": "select", "lookup": "accountType", "required": false },
+        { "key": "custodian", "label": "Custodian", "type": "select", "lookup": "custodian", "required": true }
+      ]
+    },
+    {
+      "title": "Cash Settings",
+      "fields": [
+        { "key": "triggerType", "label": "Trigger Type", "type": "select", "lookup": "triggerType", "required": true, "default": "none", "help": "Cash management bands. Select 'none' if not used." },
+        { "key": "triggerFloor", "label": "Trigger Floor", "type": "number", "requiredIf": { "field": "triggerType", "notEquals": "none" }, "help": "Minimum cash (percent or dollar based on Trigger Type)" },
+        { "key": "triggerTarget", "label": "Trigger Target", "type": "number", "requiredIf": { "field": "triggerType", "notEquals": "none" }, "help": "Target cash" },
+        { "key": "triggerCeiling", "label": "Trigger Ceiling", "type": "number", "requiredIf": { "field": "triggerType", "notEquals": "none" }, "help": "Maximum cash" },
+        { "key": "dollarCostAvg", "label": "Dollar Cost Avg", "type": "select", "lookup": "yesno", "required": true, "default": "No", "help": "Enable Dollar Cost Averaging (DCA)" },
+        { "key": "dcaFrequency", "label": "DCA Frequency", "type": "select", "lookup": "dcaFrequency", "requiredIf": { "field": "dollarCostAvg", "equals": "Yes" } },
+        { "key": "dcaTotalAmount", "label": "DCA Total Amount", "type": "currency", "requiredIf": { "field": "dollarCostAvg", "equals": "Yes" }, "help": "Total amount to be used for DCA" },
+        { "key": "dcaFrequencyAmt", "label": "DCA Frequency Amt", "type": "currency", "requiredIf": { "field": "dollarCostAvg", "equals": "Yes" }, "help": "Amount released each period" },
+        { "key": "dcaStartDate", "label": "DCA Start Date", "type": "date", "requiredIf": { "field": "dollarCostAvg", "equals": "Yes" }, "help": "Month/year DCA begins" }
+      ]
+    },
+    {
+      "title": "Withdrawal Settings",
+      "fields": [
+        { "key": "periodicWithdrawal", "label": "Periodic Withdrawal", "type": "select", "lookup": "yesno", "required": true, "default": "No", "help": "For clients taking periodic withdrawals" },
+        { "key": "pwStartDate", "label": "Periodic Withdrawal Start Date", "type": "date", "requiredIf": { "field": "periodicWithdrawal", "equals": "Yes" } },
+        { "key": "pwFrequency", "label": "Periodic Withdrawal Frequency", "type": "select", "lookup": "withdrawalFrequency", "requiredIf": { "field": "periodicWithdrawal", "equals": "Yes" } },
+        { "key": "pwAmount", "label": "Periodic Withdrawal Amount", "type": "currency", "requiredIf": { "field": "periodicWithdrawal", "equals": "Yes" } },
+        { "key": "secondaryPeriodicWithdrawal", "label": "Secondary Periodic Withdrawal", "type": "select", "lookup": "yesno", "default": "No" },
+        { "key": "secondaryPwStartDate", "label": "Secondary Withdrawal Start Date", "type": "date", "requiredIf": { "field": "secondaryPeriodicWithdrawal", "equals": "Yes" } },
+        { "key": "secondaryPwFrequency", "label": "Secondary Withdrawal Frequency", "type": "select", "lookup": "withdrawalFrequency", "requiredIf": { "field": "secondaryPeriodicWithdrawal", "equals": "Yes" } },
+        { "key": "secondaryPwAmount", "label": "Secondary Withdrawal Amount", "type": "currency", "requiredIf": { "field": "secondaryPeriodicWithdrawal", "equals": "Yes" } },
+        { "key": "allIncomeWithdrawal", "label": "All Income Withdrawal", "type": "select", "lookup": "yesno", "default": "No", "help": "Earmark all income for withdrawal" },
+        { "key": "initialWithdrawalAmount", "label": "Initial Withdrawal Amount", "type": "currency", "help": "Amount to be withdrawn immediately" }
+      ]
+    },
+    {
+      "title": "Account Settings",
+      "fields": [
+        { "key": "advisorFeeSchedule", "label": "Advisor Fee Schedule", "type": "text" },
+        { "key": "platformFeeSchedule", "label": "Platform Fee Schedule", "type": "text" },
+        { "key": "hasPretradeRestrictions", "label": "Has Pretrade Restrictions", "type": "select", "lookup": "yesno", "default": "No" },
+        { "key": "hasCarveOuts", "label": "Has Carve Outs", "type": "select", "lookup": "yesno", "default": "No" },
+        { "key": "anniversaryRebalance", "label": "Anniversary Rebalance", "type": "select", "lookup": "yesno", "required": true, "default": "No" },
+        { "key": "enableTaxOverlay", "label": "Enable Tax Overlay", "type": "select", "lookup": "yesno", "required": true, "default": "No" },
+        { "key": "enableTaxHarvestOnly", "label": "Enable Tax Harvest Only", "type": "select", "lookup": "yesno", "default": "No" },
+        { "key": "enableTaxHarvestMandate", "label": "Enable Tax Harvest Mandate", "type": "select", "lookup": "yesno", "default": "No" },
+        { "key": "allowStepOuts", "label": "Allow Step Outs", "type": "select", "lookup": "yesno", "required": true, "default": "No" }
+      ]
+    }
+  ]
+}

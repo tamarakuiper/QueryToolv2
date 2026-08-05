@@ -1,0 +1,49 @@
+{
+  "id": "accounts-by-branch",
+  "version": 1,
+  "name": "Account, HH, Branch and Advisor",
+  "description": "Accounts with household, branch, advisor and custodian for the firm.",
+  "category": "Accounts",
+  "enabled": true,
+  "scope": { "type": "global" },
+  "access": { "groups": ["operations", "advisors", "compliance"], "adminOnly": false },
+  "execution": {
+    "dataset": "accounts",
+    "timeoutSeconds": 30,
+    "maxRows": 5000,
+    "sql": "SELECT AccountId, HouseholdName, Branch, Advisor, Custodian, Status, Balance FROM accounts WHERE FirmId = @firmId AND Custodian IN @custodians ORDER BY Branch ASC"
+  },
+  "parameters": [
+    { "name": "firmId", "source": "firm", "type": "integer", "required": true, "hidden": true },
+    {
+      "name": "custodians",
+      "label": "Custodian",
+      "type": "string[]",
+      "control": "multiSelect",
+      "required": true,
+      "default": ["Schwab Institutional", "Fidelity Investments", "Pershing", "TD Ameritrade", "Trade PMR"],
+      "options": [
+        { "value": "Schwab Institutional", "label": "Schwab Institutional" },
+        { "value": "Fidelity Investments", "label": "Fidelity Investments" },
+        { "value": "Pershing", "label": "Pershing" },
+        { "value": "TD Ameritrade", "label": "TD Ameritrade" },
+        { "value": "Trade PMR", "label": "Trade PMR" }
+      ]
+    }
+  ],
+  "result": {
+    "title": "Accounts by branch",
+    "defaultPageSize": 25,
+    "export": ["csv"],
+    "columns": [
+      { "field": "AccountId", "label": "Account #", "type": "integer" },
+      { "field": "HouseholdName", "label": "Household", "type": "string", "pii": true },
+      { "field": "Branch", "label": "Branch", "type": "string" },
+      { "field": "Advisor", "label": "Advisor", "type": "string" },
+      { "field": "Custodian", "label": "Custodian", "type": "badge" },
+      { "field": "Status", "label": "Status", "type": "badge" },
+      { "field": "Balance", "label": "Market Value", "type": "currency" }
+    ]
+  },
+  "tags": ["accounts", "branch", "advisor", "reporting"]
+}

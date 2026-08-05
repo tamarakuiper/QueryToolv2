@@ -1,0 +1,7 @@
+[
+  { "id": 101, "slug": "demo-firm", "name": "Demo Firm", "enabled": true, "connectionKey": "DEMO_FIRM_DB", "region": "US-East", "accountsUnderManagement": 482000000 },
+  { "id": 205, "slug": "northstar-advisors", "name": "Northstar Advisors", "enabled": true, "connectionKey": "NORTHSTAR_DB", "region": "US-West", "accountsUnderManagement": 1240000000 },
+  { "id": 310, "slug": "cascade-capital", "name": "Cascade Capital", "enabled": true, "connectionKey": "CASCADE_DB", "region": "US-Central", "accountsUnderManagement": 356000000 },
+  { "id": 415, "slug": "meridian-wealth", "name": "Meridian Wealth", "enabled": true, "connectionKey": "MERIDIAN_DB", "region": "US-Southeast", "accountsUnderManagement": 689000000 },
+  { "id": 520, "slug": "blue-harbor-capital", "name": "Blue Harbor Capital", "enabled": true, "connectionKey": "BLUEHARBOR_DB", "region": "US-South", "accountsUnderManagement": 915000000 }
+]

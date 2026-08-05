@@ -1,0 +1,31 @@
+{
+  "id": "market-value-by-advisor",
+  "version": 1,
+  "name": "Market Value by Advisor",
+  "description": "Total market value and position count grouped by advisor for the firm.",
+  "category": "Advisors",
+  "enabled": true,
+  "isAggregate": true,
+  "scope": { "type": "global" },
+  "access": { "groups": ["operations", "advisors", "compliance"], "adminOnly": false },
+  "execution": {
+    "dataset": "holdings",
+    "timeoutSeconds": 30,
+    "maxRows": 5000,
+    "sql": "SELECT Advisor, COUNT(*) AS Positions, SUM(MarketValue) AS TotalMarketValue FROM holdings WHERE FirmId = @firmId GROUP BY Advisor ORDER BY TotalMarketValue DESC"
+  },
+  "parameters": [
+    { "name": "firmId", "source": "firm", "type": "integer", "required": true, "hidden": true }
+  ],
+  "result": {
+    "title": "Market value by advisor",
+    "defaultPageSize": 25,
+    "export": ["csv"],
+    "columns": [
+      { "field": "Advisor", "label": "Advisor", "type": "string" },
+      { "field": "Positions", "label": "# Positions", "type": "integer" },
+      { "field": "TotalMarketValue", "label": "Total Market Value", "type": "currency" }
+    ]
+  },
+  "tags": ["advisor", "aggregate", "reporting"]
+}

@@ -1,0 +1,22 @@
+{
+  "_note": "List of query definition files to load. Add a new query by creating its JSON file and adding the filename here.",
+  "queries": [
+    "accounts-by-status.json",
+    "top-accounts-by-balance.json",
+    "holdings-by-asset-class.json",
+    "client-directory.json",
+    "client-pii-export.json",
+    "large-transactions.json",
+    "proposal-accounts.json",
+    "firm-accounts.json",
+    "firm-households.json",
+    "held-assets-by-account.json",
+    "mv-for-asset.json",
+    "accounts-in-model.json",
+    "accounts-with-cash-triggers.json",
+    "market-value-by-advisor.json",
+    "accounts-by-branch.json",
+    "firm-advisors.json",
+    "account-vs-model-drift.json"
+  ]
+}

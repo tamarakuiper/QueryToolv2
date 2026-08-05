@@ -1,0 +1,11 @@
+[
+  {"BranchId": 901, "FirmId": 101, "BranchName": "Demo - Main", "Region": "Demo Firm"},
+  {"BranchId": 902, "FirmId": 101, "BranchName": "Demo - Downtown", "Region": "Demo Firm"},
+  {"BranchId": 903, "FirmId": 205, "BranchName": "Northstar - West", "Region": "Northstar Advisors"},
+  {"BranchId": 904, "FirmId": 205, "BranchName": "Northstar - Central", "Region": "Northstar Advisors"},
+  {"BranchId": 905, "FirmId": 310, "BranchName": "Cascade - Summit", "Region": "Cascade Capital"},
+  {"BranchId": 906, "FirmId": 415, "BranchName": "Meridian - Coastal", "Region": "Meridian Wealth"},
+  {"BranchId": 907, "FirmId": 415, "BranchName": "Meridian - Harbor", "Region": "Meridian Wealth"},
+  {"BranchId": 908, "FirmId": 520, "BranchName": "Blue Harbor - Bay", "Region": "Blue Harbor Capital"},
+  {"BranchId": 909, "FirmId": 520, "BranchName": "Blue Harbor - Pier", "Region": "Blue Harbor Capital"}
+]

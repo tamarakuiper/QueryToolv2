@@ -1,0 +1,26 @@
+[
+  {
+    "id": "operations",
+    "name": "Operations",
+    "description": "Operations users who manage accounts and daily processing",
+    "enabled": true
+  },
+  {
+    "id": "advisors",
+    "name": "Advisors",
+    "description": "Financial advisors who review client holdings and performance",
+    "enabled": true
+  },
+  {
+    "id": "compliance",
+    "name": "Compliance",
+    "description": "Compliance and audit reviewers",
+    "enabled": true
+  },
+  {
+    "id": "admins",
+    "name": "Administrators",
+    "description": "Full administrative access to all queries and settings",
+    "enabled": true
+  }
+]

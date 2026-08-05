@@ -1,0 +1,673 @@
+{
+  "_note": "Describes the mock tables. The SQL Assistant uses this to map plain-English requests to real tables and columns. The mini SQL engine (js/sqlengine.js) runs generated and predefined SQL against the datasets in data/mock/.",
+  "tables": {
+    "accounts": {
+      "dataset": "accounts",
+      "label": "Accounts",
+      "estimatedRows": 1200000,
+      "synonyms": [
+        "account",
+        "accounts",
+        "portfolio",
+        "portfolios"
+      ],
+      "columns": {
+        "AccountId": {
+          "type": "integer",
+          "synonyms": [
+            "account id",
+            "id"
+          ]
+        },
+        "FirmId": {
+          "type": "integer",
+          "synonyms": [
+            "firm"
+          ]
+        },
+        "AccountName": {
+          "type": "string",
+          "synonyms": [
+            "account name",
+            "name"
+          ],
+          "pii": true,
+          "piiCategory": "Name"
+        },
+        "Status": {
+          "type": "badge",
+          "synonyms": [
+            "status",
+            "state"
+          ],
+          "values": [
+            "Active",
+            "Closed",
+            "Pending",
+            "Frozen"
+          ]
+        },
+        "AccountType": {
+          "type": "string",
+          "synonyms": [
+            "type",
+            "account type"
+          ],
+          "values": [
+            "Individual",
+            "Joint",
+            "IRA",
+            "Trust",
+            "Corporate"
+          ]
+        },
+        "OpenDate": {
+          "type": "date",
+          "synonyms": [
+            "open date",
+            "opened",
+            "opened after",
+            "opened on"
+          ]
+        },
+        "Balance": {
+          "type": "currency",
+          "synonyms": [
+            "balance",
+            "value",
+            "aum",
+            "amount"
+          ]
+        },
+        "ClientId": {
+          "type": "integer",
+          "synonyms": [
+            "client id",
+            "client"
+          ]
+        },
+        "Advisor": {
+          "type": "string",
+          "synonyms": [
+            "advisor",
+            "rep"
+          ]
+        },
+        "Branch": {
+          "type": "string",
+          "synonyms": [
+            "branch",
+            "office"
+          ]
+        },
+        "Custodian": {
+          "type": "badge",
+          "synonyms": [
+            "custodian"
+          ],
+          "values": [
+            "Schwab Institutional",
+            "Fidelity Investments",
+            "Pershing",
+            "TD Ameritrade",
+            "Trade PMR"
+          ]
+        },
+        "HouseholdName": {
+          "type": "string",
+          "synonyms": [
+            "household",
+            "household name"
+          ],
+          "pii": true,
+          "piiCategory": "Name"
+        }
+      }
+    },
+    "holdings": {
+      "dataset": "holdings",
+      "label": "Holdings",
+      "estimatedRows": 8000000,
+      "missionCritical": true,
+      "synonyms": [
+        "holding",
+        "holdings",
+        "position",
+        "positions",
+        "securities"
+      ],
+      "columns": {
+        "HoldingId": {
+          "type": "integer",
+          "synonyms": [
+            "holding id"
+          ]
+        },
+        "FirmId": {
+          "type": "integer",
+          "synonyms": [
+            "firm"
+          ]
+        },
+        "AccountId": {
+          "type": "integer",
+          "synonyms": [
+            "account id",
+            "account"
+          ]
+        },
+        "Symbol": {
+          "type": "string",
+          "synonyms": [
+            "symbol",
+            "ticker"
+          ]
+        },
+        "SecurityName": {
+          "type": "string",
+          "synonyms": [
+            "security",
+            "security name",
+            "name"
+          ]
+        },
+        "AssetClass": {
+          "type": "badge",
+          "synonyms": [
+            "asset class",
+            "class",
+            "asset"
+          ],
+          "values": [
+            "Equity",
+            "Fixed Income",
+            "Cash",
+            "Alternative",
+            "ETF"
+          ]
+        },
+        "Quantity": {
+          "type": "number",
+          "synonyms": [
+            "quantity",
+            "shares",
+            "units"
+          ]
+        },
+        "MarketValue": {
+          "type": "currency",
+          "synonyms": [
+            "market value",
+            "value",
+            "worth"
+          ]
+        },
+        "Advisor": {
+          "type": "string",
+          "synonyms": [
+            "advisor"
+          ]
+        },
+        "Branch": {
+          "type": "string",
+          "synonyms": [
+            "branch",
+            "office"
+          ]
+        }
+      }
+    },
+    "clients": {
+      "dataset": "clients",
+      "label": "Clients",
+      "estimatedRows": 300000,
+      "synonyms": [
+        "client",
+        "clients",
+        "customer",
+        "customers",
+        "household",
+        "households"
+      ],
+      "columns": {
+        "ClientId": {
+          "type": "integer",
+          "synonyms": [
+            "client id",
+            "id"
+          ]
+        },
+        "FirmId": {
+          "type": "integer",
+          "synonyms": [
+            "firm"
+          ]
+        },
+        "ClientName": {
+          "type": "string",
+          "synonyms": [
+            "client name",
+            "name"
+          ],
+          "pii": true,
+          "piiCategory": "Name"
+        },
+        "Email": {
+          "type": "string",
+          "synonyms": [
+            "email"
+          ],
+          "pii": true,
+          "piiCategory": "Email"
+        },
+        "Phone": {
+          "type": "string",
+          "synonyms": [
+            "phone",
+            "mobile",
+            "number"
+          ],
+          "pii": true,
+          "piiCategory": "Phone"
+        },
+        "DateOfBirth": {
+          "type": "date",
+          "synonyms": [
+            "date of birth",
+            "dob",
+            "birthday"
+          ],
+          "pii": true,
+          "piiCategory": "DOB"
+        },
+        "SSN": {
+          "type": "string",
+          "synonyms": [
+            "ssn",
+            "social security",
+            "social"
+          ],
+          "pii": true,
+          "piiCategory": "SSN"
+        },
+        "Address": {
+          "type": "string",
+          "synonyms": [
+            "address",
+            "street",
+            "location"
+          ],
+          "pii": true,
+          "piiCategory": "Address"
+        },
+        "State": {
+          "type": "string",
+          "synonyms": [
+            "state"
+          ]
+        },
+        "Tier": {
+          "type": "badge",
+          "synonyms": [
+            "tier",
+            "segment"
+          ],
+          "values": [
+            "Platinum",
+            "Gold",
+            "Silver",
+            "Bronze"
+          ]
+        },
+        "JoinDate": {
+          "type": "date",
+          "synonyms": [
+            "join date",
+            "joined",
+            "since"
+          ]
+        },
+        "Advisor": {
+          "type": "string",
+          "synonyms": [
+            "advisor"
+          ]
+        },
+        "Branch": {
+          "type": "string",
+          "synonyms": [
+            "branch",
+            "office"
+          ]
+        }
+      }
+    },
+    "transactions": {
+      "dataset": "transactions",
+      "label": "Transactions",
+      "estimatedRows": 40000000,
+      "missionCritical": true,
+      "synonyms": [
+        "transaction",
+        "transactions",
+        "txn",
+        "trade",
+        "trades",
+        "activity"
+      ],
+      "columns": {
+        "TxnId": {
+          "type": "integer",
+          "synonyms": [
+            "transaction id",
+            "txn id",
+            "id"
+          ]
+        },
+        "FirmId": {
+          "type": "integer",
+          "synonyms": [
+            "firm"
+          ]
+        },
+        "AccountId": {
+          "type": "integer",
+          "synonyms": [
+            "account id",
+            "account"
+          ]
+        },
+        "TxnDate": {
+          "type": "date",
+          "synonyms": [
+            "date",
+            "transaction date",
+            "when"
+          ]
+        },
+        "TxnType": {
+          "type": "badge",
+          "synonyms": [
+            "type",
+            "transaction type"
+          ],
+          "values": [
+            "Buy",
+            "Sell",
+            "Deposit",
+            "Withdrawal",
+            "Dividend",
+            "Fee"
+          ]
+        },
+        "Symbol": {
+          "type": "string",
+          "synonyms": [
+            "symbol",
+            "ticker"
+          ]
+        },
+        "Amount": {
+          "type": "currency",
+          "synonyms": [
+            "amount",
+            "value",
+            "size"
+          ]
+        },
+        "Advisor": {
+          "type": "string",
+          "synonyms": [
+            "advisor"
+          ]
+        }
+      }
+    },
+    "proposalaccounts": {
+      "dataset": "proposalaccounts",
+      "label": "Proposal Accounts",
+      "estimatedRows": 1200000,
+      "synonyms": [
+        "proposal account",
+        "proposal accounts",
+        "proposal",
+        "trading setup",
+        "account setup"
+      ],
+      "columns": {
+        "ProposalAccountId": {
+          "type": "integer",
+          "synonyms": [
+            "proposal account id",
+            "proposal id"
+          ]
+        },
+        "AccountId": {
+          "type": "integer",
+          "synonyms": [
+            "account id",
+            "account number",
+            "account"
+          ]
+        },
+        "FirmId": {
+          "type": "integer",
+          "synonyms": [
+            "firm"
+          ]
+        },
+        "Model": {
+          "type": "badge",
+          "synonyms": [
+            "model",
+            "strategy"
+          ],
+          "values": [
+            "Aggressive",
+            "Growth",
+            "Balanced",
+            "Conservative",
+            "Income"
+          ]
+        },
+        "CashTargetPct": {
+          "type": "number",
+          "synonyms": [
+            "cash target",
+            "target cash"
+          ]
+        },
+        "CashTriggerLowPct": {
+          "type": "number",
+          "synonyms": [
+            "cash trigger low",
+            "low trigger",
+            "cash trigger"
+          ]
+        },
+        "CashTriggerHighPct": {
+          "type": "number",
+          "synonyms": [
+            "cash trigger high",
+            "high trigger",
+            "cash trigger"
+          ]
+        },
+        "FloorAmount": {
+          "type": "currency",
+          "synonyms": [
+            "floor",
+            "floor amount",
+            "minimum"
+          ]
+        },
+        "CeilingAmount": {
+          "type": "currency",
+          "synonyms": [
+            "ceiling",
+            "ceiling amount",
+            "maximum"
+          ]
+        },
+        "RebalanceThresholdPct": {
+          "type": "number",
+          "synonyms": [
+            "rebalance threshold",
+            "rebalance",
+            "drift"
+          ]
+        },
+        "TradingEnabled": {
+          "type": "badge",
+          "synonyms": [
+            "trading",
+            "trading enabled",
+            "trading capable"
+          ],
+          "values": [
+            "true",
+            "false"
+          ]
+        },
+        "Version": {
+          "type": "integer",
+          "synonyms": [
+            "version"
+          ]
+        },
+        "Advisor": {
+          "type": "string",
+          "synonyms": [
+            "advisor"
+          ]
+        },
+        "Branch": {
+          "type": "string",
+          "synonyms": [
+            "branch",
+            "office"
+          ]
+        },
+        "Custodian": {
+          "type": "badge",
+          "synonyms": [
+            "custodian"
+          ],
+          "values": [
+            "Schwab Institutional",
+            "Fidelity Investments",
+            "Pershing",
+            "TD Ameritrade",
+            "Trade PMR"
+          ]
+        },
+        "ProposalAccountStatus": {
+          "type": "badge",
+          "synonyms": [
+            "status",
+            "proposal status"
+          ],
+          "values": [
+            "Active",
+            "Pending",
+            "Suspended",
+            "Closed"
+          ]
+        },
+        "Composite": {
+          "type": "string",
+          "synonyms": [
+            "composite"
+          ]
+        }
+      }
+    },
+    "advisors": {
+      "dataset": "advisors",
+      "label": "Advisors",
+      "estimatedRows": 50000,
+      "synonyms": [
+        "advisor",
+        "advisors",
+        "rep",
+        "reps"
+      ],
+      "columns": {
+        "AdvisorId": {
+          "type": "integer",
+          "synonyms": [
+            "advisor id"
+          ]
+        },
+        "FirmId": {
+          "type": "integer",
+          "synonyms": [
+            "firm"
+          ]
+        },
+        "AdvisorName": {
+          "type": "string",
+          "synonyms": [
+            "advisor",
+            "name"
+          ]
+        },
+        "Email": {
+          "type": "string",
+          "synonyms": [
+            "email"
+          ],
+          "pii": true,
+          "piiCategory": "Email"
+        },
+        "Branch": {
+          "type": "string",
+          "synonyms": [
+            "branch",
+            "office"
+          ]
+        }
+      }
+    },
+    "branches": {
+      "dataset": "branches",
+      "label": "Branches",
+      "estimatedRows": 2000,
+      "synonyms": [
+        "branch",
+        "branches",
+        "office",
+        "offices"
+      ],
+      "columns": {
+        "BranchId": {
+          "type": "integer",
+          "synonyms": [
+            "branch id"
+          ]
+        },
+        "FirmId": {
+          "type": "integer",
+          "synonyms": [
+            "firm"
+          ]
+        },
+        "BranchName": {
+          "type": "string",
+          "synonyms": [
+            "branch",
+            "office",
+            "name"
+          ]
+        },
+        "Region": {
+          "type": "string",
+          "synonyms": [
+            "region",
+            "firm"
+          ]
+        }
+      }
+    }
+  }
+}

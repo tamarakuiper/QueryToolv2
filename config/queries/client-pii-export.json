@@ -1,0 +1,49 @@
+{
+  "id": "client-pii-export",
+  "version": 1,
+  "name": "Client PII Export",
+  "description": "Full client contact record including name, address, phone, DOB and masked SSN. Restricted to Compliance and Administrators.",
+  "category": "Clients",
+  "enabled": true,
+  "scope": { "type": "global" },
+  "access": { "groups": ["compliance"], "adminOnly": false },
+  "execution": {
+    "dataset": "clients",
+    "timeoutSeconds": 30,
+    "maxRows": 5000,
+    "sql": "SELECT ClientId, ClientName, Address, Email, Phone, DateOfBirth, SSN, Tier FROM clients WHERE FirmId = @firmId AND Tier IN @tiers ORDER BY ClientName ASC"
+  },
+  "parameters": [
+    { "name": "firmId", "source": "firm", "type": "integer", "required": true, "hidden": true },
+    {
+      "name": "tiers",
+      "label": "Service tier",
+      "type": "string[]",
+      "control": "multiSelect",
+      "required": true,
+      "default": ["Platinum", "Gold", "Silver", "Bronze"],
+      "options": [
+        { "value": "Platinum", "label": "Platinum" },
+        { "value": "Gold", "label": "Gold" },
+        { "value": "Silver", "label": "Silver" },
+        { "value": "Bronze", "label": "Bronze" }
+      ]
+    }
+  ],
+  "result": {
+    "title": "Client PII records",
+    "defaultPageSize": 25,
+    "export": ["csv"],
+    "columns": [
+      { "field": "ClientId", "label": "Client ID", "type": "integer" },
+      { "field": "ClientName", "label": "Client", "type": "string", "pii": true },
+      { "field": "Address", "label": "Address", "type": "string", "pii": true },
+      { "field": "Email", "label": "Email", "type": "string", "pii": true },
+      { "field": "Phone", "label": "Phone", "type": "string", "pii": true },
+      { "field": "DateOfBirth", "label": "Date of Birth", "type": "date", "pii": true },
+      { "field": "SSN", "label": "SSN", "type": "string", "pii": true },
+      { "field": "Tier", "label": "Tier", "type": "badge" }
+    ]
+  },
+  "tags": ["clients", "compliance", "pii"]
+}

@@ -1,0 +1,55 @@
+{
+  "id": "accounts-by-status",
+  "version": 1,
+  "name": "Accounts by Status",
+  "description": "Returns accounts for the selected firm filtered by status and opening date.",
+  "category": "Accounts",
+  "enabled": true,
+  "scope": { "type": "global" },
+  "access": { "groups": ["operations", "advisors"], "adminOnly": false },
+  "execution": {
+    "dataset": "accounts",
+    "timeoutSeconds": 30,
+    "maxRows": 5000,
+    "sql": "SELECT AccountId, AccountName, AccountType, Status, OpenDate, Balance FROM accounts WHERE FirmId = @firmId AND Status IN @statuses AND OpenDate >= @openedAfter ORDER BY Balance DESC"
+  },
+  "parameters": [
+    { "name": "firmId", "source": "firm", "type": "integer", "required": true, "hidden": true },
+    {
+      "name": "statuses",
+      "label": "Account status",
+      "type": "string[]",
+      "control": "multiSelect",
+      "required": true,
+      "default": ["Active", "Pending"],
+      "options": [
+        { "value": "Active", "label": "Active" },
+        { "value": "Pending", "label": "Pending" },
+        { "value": "Frozen", "label": "Frozen" },
+        { "value": "Closed", "label": "Closed" }
+      ]
+    },
+    {
+      "name": "openedAfter",
+      "label": "Opened on or after",
+      "type": "date",
+      "control": "date",
+      "required": false,
+      "default": "2000-01-01"
+    }
+  ],
+  "result": {
+    "title": "Matching accounts",
+    "defaultPageSize": 25,
+    "export": ["csv"],
+    "columns": [
+      { "field": "AccountId", "label": "Account ID", "type": "integer" },
+      { "field": "AccountName", "label": "Account", "type": "string" },
+      { "field": "AccountType", "label": "Type", "type": "string" },
+      { "field": "Status", "label": "Status", "type": "badge" },
+      { "field": "OpenDate", "label": "Opened", "type": "date" },
+      { "field": "Balance", "label": "Balance", "type": "currency" }
+    ]
+  },
+  "tags": ["accounts", "operations"]
+}

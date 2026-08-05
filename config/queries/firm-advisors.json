@@ -1,0 +1,31 @@
+{
+  "id": "firm-advisors",
+  "version": 1,
+  "name": "Firm Advisors",
+  "description": "Advisors for the firm with their branch and contact email.",
+  "category": "Advisors",
+  "enabled": true,
+  "scope": { "type": "global" },
+  "access": { "groups": ["operations", "compliance"], "adminOnly": false },
+  "execution": {
+    "dataset": "advisors",
+    "timeoutSeconds": 30,
+    "maxRows": 5000,
+    "sql": "SELECT AdvisorId, AdvisorName, Branch, Email FROM advisors WHERE FirmId = @firmId ORDER BY AdvisorName ASC"
+  },
+  "parameters": [
+    { "name": "firmId", "source": "firm", "type": "integer", "required": true, "hidden": true }
+  ],
+  "result": {
+    "title": "Advisors",
+    "defaultPageSize": 25,
+    "export": ["csv"],
+    "columns": [
+      { "field": "AdvisorId", "label": "Advisor ID", "type": "integer" },
+      { "field": "AdvisorName", "label": "Advisor", "type": "string" },
+      { "field": "Branch", "label": "Branch", "type": "string" },
+      { "field": "Email", "label": "Email", "type": "string", "pii": true }
+    ]
+  },
+  "tags": ["advisor", "reference"]
+}

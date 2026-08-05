@@ -1,0 +1,52 @@
+{
+  "id": "proposal-accounts",
+  "version": 1,
+  "name": "Proposal Accounts",
+  "description": "Trading setup per account — cash triggers, floor/ceiling, model and trading status.",
+  "category": "Accounts",
+  "enabled": true,
+  "scope": { "type": "global" },
+  "access": { "groups": ["operations", "advisors", "compliance"], "adminOnly": false },
+  "execution": {
+    "dataset": "proposalaccounts",
+    "timeoutSeconds": 30,
+    "maxRows": 5000,
+    "sql": "SELECT AccountId, ProposalAccountId, Model, CashTriggerLowPct, CashTriggerHighPct, FloorAmount, CeilingAmount, RebalanceThresholdPct, TradingEnabled, Version FROM proposalaccounts WHERE FirmId = @firmId AND Model IN @models ORDER BY AccountId ASC"
+  },
+  "parameters": [
+    { "name": "firmId", "source": "firm", "type": "integer", "required": true, "hidden": true },
+    {
+      "name": "models",
+      "label": "Model",
+      "type": "string[]",
+      "control": "multiSelect",
+      "required": true,
+      "default": ["Aggressive", "Growth", "Balanced", "Conservative", "Income"],
+      "options": [
+        { "value": "Aggressive", "label": "Aggressive" },
+        { "value": "Growth", "label": "Growth" },
+        { "value": "Balanced", "label": "Balanced" },
+        { "value": "Conservative", "label": "Conservative" },
+        { "value": "Income", "label": "Income" }
+      ]
+    }
+  ],
+  "result": {
+    "title": "Proposal accounts",
+    "defaultPageSize": 25,
+    "export": ["csv"],
+    "columns": [
+      { "field": "AccountId", "label": "Account", "type": "integer" },
+      { "field": "ProposalAccountId", "label": "Proposal Account ID", "type": "integer" },
+      { "field": "Model", "label": "Model", "type": "badge" },
+      { "field": "CashTriggerLowPct", "label": "Cash Low %", "type": "number" },
+      { "field": "CashTriggerHighPct", "label": "Cash High %", "type": "number" },
+      { "field": "FloorAmount", "label": "Floor", "type": "currency" },
+      { "field": "CeilingAmount", "label": "Ceiling", "type": "currency" },
+      { "field": "RebalanceThresholdPct", "label": "Rebalance %", "type": "number" },
+      { "field": "TradingEnabled", "label": "Trading", "type": "badge" },
+      { "field": "Version", "label": "Version", "type": "integer" }
+    ]
+  },
+  "tags": ["accounts", "proposal", "trading"]
+}

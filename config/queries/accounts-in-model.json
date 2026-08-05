@@ -1,0 +1,30 @@
+{
+  "id": "accounts-in-model",
+  "version": 1,
+  "name": "Number of Accounts in Model",
+  "description": "Count of proposal accounts enrolled in each model for the firm.",
+  "category": "Proposal Central",
+  "enabled": true,
+  "isAggregate": true,
+  "scope": { "type": "global" },
+  "access": { "groups": ["operations", "advisors"], "adminOnly": false },
+  "execution": {
+    "dataset": "proposalaccounts",
+    "timeoutSeconds": 30,
+    "maxRows": 5000,
+    "sql": "SELECT Model, COUNT(*) AS Accounts FROM proposalaccounts WHERE FirmId = @firmId GROUP BY Model ORDER BY Accounts DESC"
+  },
+  "parameters": [
+    { "name": "firmId", "source": "firm", "type": "integer", "required": true, "hidden": true }
+  ],
+  "result": {
+    "title": "Accounts per model",
+    "defaultPageSize": 25,
+    "export": ["csv"],
+    "columns": [
+      { "field": "Model", "label": "Model", "type": "badge" },
+      { "field": "Accounts", "label": "# Accounts", "type": "integer" }
+    ]
+  },
+  "tags": ["proposal", "models", "aggregate"]
+}

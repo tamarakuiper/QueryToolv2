@@ -1,0 +1,50 @@
+{
+  "id": "top-accounts-by-balance",
+  "version": 1,
+  "name": "Top Accounts by Balance",
+  "description": "Highest-balance accounts for the firm above a minimum balance threshold.",
+  "category": "Accounts",
+  "enabled": true,
+  "scope": { "type": "global" },
+  "access": { "groups": ["advisors", "operations"], "adminOnly": false },
+  "execution": {
+    "dataset": "accounts",
+    "timeoutSeconds": 30,
+    "maxRows": 5000,
+    "sql": "SELECT AccountId, AccountName, AccountType, Balance FROM accounts WHERE FirmId = @firmId AND Balance >= @minBalance ORDER BY Balance DESC LIMIT @topN"
+  },
+  "parameters": [
+    { "name": "firmId", "source": "firm", "type": "integer", "required": true, "hidden": true },
+    {
+      "name": "minBalance",
+      "label": "Minimum balance",
+      "type": "number",
+      "control": "number",
+      "required": true,
+      "default": 100000,
+      "min": 0
+    },
+    {
+      "name": "topN",
+      "label": "Show top N",
+      "type": "integer",
+      "control": "number",
+      "required": true,
+      "default": 10,
+      "min": 1,
+      "max": 100
+    }
+  ],
+  "result": {
+    "title": "Top accounts",
+    "defaultPageSize": 25,
+    "export": ["csv"],
+    "columns": [
+      { "field": "AccountId", "label": "Account ID", "type": "integer" },
+      { "field": "AccountName", "label": "Account", "type": "string" },
+      { "field": "AccountType", "label": "Type", "type": "string" },
+      { "field": "Balance", "label": "Balance", "type": "currency" }
+    ]
+  },
+  "tags": ["accounts", "advisors"]
+}
