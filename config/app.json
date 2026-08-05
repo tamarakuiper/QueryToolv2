@@ -1,0 +1,44 @@
+{
+  "app": {
+    "name": "QueryTool",
+    "tagline": "Approved data queries without direct database access",
+    "defaultPageSize": 25,
+    "maxExportRows": 10000
+  },
+  "features": {
+    "registration": false,
+    "activation": false,
+    "analytics": true,
+    "csvExport": true,
+    "queryEditor": true,
+    "sqlAssistant": true,
+    "scheduling": true
+  },
+  "authentication": {
+    "mode": "demo",
+    "sessionKey": "qt.session",
+    "allowedEmailDomains": [
+      "demo.com",
+      "adhesionwealth.com",
+      "assetmark.com"
+    ]
+  },
+  "sqlAssistantAccess": {
+    "adminOnly": false,
+    "allowGroups": ["operations", "compliance"],
+    "_note": "Who may use the ad-hoc SQL Assistant. Admins always may. Everyone else needs a group in allowGroups. Groups NOT listed (e.g. advisors) can only run pre-approved reports from the Queries page. Set adminOnly:true to restrict to admins, or list [] to deny all non-admins."
+  },
+  "branding": {
+    "logoText": "QueryTool",
+    "logoMark": "QT",
+    "accent": "#111827",
+    "surface": "#faf9f5"
+  },
+  "queryPolicy": {
+    "enabled": true,
+    "workHours": { "days": [1, 2, 3, 4, 5], "start": "09:00", "end": "17:00" },
+    "afterHoursTime": "19:00",
+    "heavyCostThreshold": 1000000000000000,
+    "_note": "A multi-table join is treated as HEAVY when it touches a mission-critical table (admins set these on the Data Governance page) OR when its estimated cost — the product of joined table sizes — exceeds heavyCostThreshold. Heavy queries are blocked during workHours (days: 1=Mon..5=Fri) and must be scheduled after hours. Set enabled:false to turn governance off."
+  }
+}

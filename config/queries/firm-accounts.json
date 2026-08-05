@@ -1,0 +1,48 @@
+{
+  "id": "firm-accounts",
+  "version": 1,
+  "name": "Firm Accounts",
+  "description": "Full list of accounts for the firm with type, status, open date and balance.",
+  "category": "Accounts",
+  "enabled": true,
+  "scope": { "type": "global" },
+  "access": { "groups": ["operations", "advisors", "compliance"], "adminOnly": false },
+  "execution": {
+    "dataset": "accounts",
+    "timeoutSeconds": 30,
+    "maxRows": 5000,
+    "sql": "SELECT AccountId, AccountName, AccountType, Status, OpenDate, Balance FROM accounts WHERE FirmId = @firmId AND AccountType IN @types ORDER BY AccountName ASC"
+  },
+  "parameters": [
+    { "name": "firmId", "source": "firm", "type": "integer", "required": true, "hidden": true },
+    {
+      "name": "types",
+      "label": "Account type",
+      "type": "string[]",
+      "control": "multiSelect",
+      "required": true,
+      "default": ["Individual", "Joint", "IRA", "Trust", "Corporate"],
+      "options": [
+        { "value": "Individual", "label": "Individual" },
+        { "value": "Joint", "label": "Joint" },
+        { "value": "IRA", "label": "IRA" },
+        { "value": "Trust", "label": "Trust" },
+        { "value": "Corporate", "label": "Corporate" }
+      ]
+    }
+  ],
+  "result": {
+    "title": "Firm accounts",
+    "defaultPageSize": 25,
+    "export": ["csv"],
+    "columns": [
+      { "field": "AccountId", "label": "Account #", "type": "integer" },
+      { "field": "AccountName", "label": "Account", "type": "string" },
+      { "field": "AccountType", "label": "Type", "type": "string" },
+      { "field": "Status", "label": "Status", "type": "badge" },
+      { "field": "OpenDate", "label": "Opened", "type": "date" },
+      { "field": "Balance", "label": "Market Value", "type": "currency" }
+    ]
+  },
+  "tags": ["accounts", "reporting"]
+}

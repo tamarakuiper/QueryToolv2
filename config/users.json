@@ -1,0 +1,83 @@
+{
+  "_note": "DEMO ONLY. Passwords are stored in plaintext here so the login is easy to edit for the hackathon. Never do this in production \u2014 use hashed passwords and keep identity data out of committed files.",
+  "users": [
+    {
+      "id": "u-001",
+      "email": "ops@demo.com",
+      "password": "demo123",
+      "displayName": "Olivia Ops",
+      "enabled": true,
+      "isAdmin": false,
+      "groups": [
+        "operations"
+      ],
+      "firms": [
+        101,
+        205,
+        310,
+        415,
+        520
+      ],
+      "reportLocation": "/reports/operations"
+    },
+    {
+      "id": "u-002",
+      "email": "advisor@demo.com",
+      "password": "demo123",
+      "displayName": "Aaron Advisor",
+      "enabled": true,
+      "isAdmin": false,
+      "groups": [
+        "advisors"
+      ],
+      "firms": [
+        101,
+        205,
+        415
+      ],
+      "reportLocation": "/reports/advisors"
+    },
+    {
+      "id": "u-003",
+      "email": "compliance@demo.com",
+      "password": "demo123",
+      "displayName": "Casey Compliance",
+      "enabled": true,
+      "isAdmin": false,
+      "groups": [
+        "compliance",
+        "operations"
+      ],
+      "firms": [
+        101,
+        205,
+        310,
+        415,
+        520
+      ],
+      "reportLocation": "/reports/compliance"
+    },
+    {
+      "id": "u-004",
+      "email": "admin@demo.com",
+      "password": "admin123",
+      "displayName": "Adrian Admin",
+      "enabled": true,
+      "isAdmin": true,
+      "groups": [
+        "operations",
+        "advisors",
+        "compliance",
+        "admins"
+      ],
+      "firms": [
+        101,
+        205,
+        310,
+        415,
+        520
+      ],
+      "reportLocation": "/reports/admin"
+    }
+  ]
+}

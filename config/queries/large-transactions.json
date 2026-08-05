@@ -1,0 +1,58 @@
+{
+  "id": "large-transactions",
+  "version": 1,
+  "name": "Large Transactions",
+  "description": "Transactions for the firm above a dollar threshold, filtered by type.",
+  "category": "Transactions",
+  "enabled": true,
+  "scope": { "type": "global" },
+  "access": { "groups": ["operations", "compliance", "admins"], "adminOnly": false },
+  "execution": {
+    "dataset": "transactions",
+    "timeoutSeconds": 30,
+    "maxRows": 5000,
+    "sql": "SELECT TxnId, AccountId, TxnDate, TxnType, Symbol, Amount FROM transactions WHERE FirmId = @firmId AND TxnType IN @types AND Amount >= @minAmount ORDER BY Amount DESC"
+  },
+  "parameters": [
+    { "name": "firmId", "source": "firm", "type": "integer", "required": true, "hidden": true },
+    {
+      "name": "types",
+      "label": "Transaction type",
+      "type": "string[]",
+      "control": "multiSelect",
+      "required": true,
+      "default": ["Buy", "Sell", "Deposit", "Withdrawal", "Dividend", "Fee"],
+      "options": [
+        { "value": "Buy", "label": "Buy" },
+        { "value": "Sell", "label": "Sell" },
+        { "value": "Deposit", "label": "Deposit" },
+        { "value": "Withdrawal", "label": "Withdrawal" },
+        { "value": "Dividend", "label": "Dividend" },
+        { "value": "Fee", "label": "Fee" }
+      ]
+    },
+    {
+      "name": "minAmount",
+      "label": "Minimum amount",
+      "type": "number",
+      "control": "number",
+      "required": true,
+      "default": 50000,
+      "min": 0
+    }
+  ],
+  "result": {
+    "title": "Transactions",
+    "defaultPageSize": 25,
+    "export": ["csv"],
+    "columns": [
+      { "field": "TxnId", "label": "Txn ID", "type": "integer" },
+      { "field": "AccountId", "label": "Account", "type": "integer" },
+      { "field": "TxnDate", "label": "Date", "type": "date" },
+      { "field": "TxnType", "label": "Type", "type": "badge" },
+      { "field": "Symbol", "label": "Symbol", "type": "string" },
+      { "field": "Amount", "label": "Amount", "type": "currency" }
+    ]
+  },
+  "tags": ["transactions", "compliance"]
+}

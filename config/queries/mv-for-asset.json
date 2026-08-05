@@ -1,0 +1,32 @@
+{
+  "id": "mv-for-asset",
+  "version": 1,
+  "name": "Market Value for Asset Across Accounts",
+  "description": "Total market value and account count per security across the firm.",
+  "category": "Holdings",
+  "enabled": true,
+  "isAggregate": true,
+  "scope": { "type": "global" },
+  "access": { "groups": ["operations", "advisors", "compliance"], "adminOnly": false },
+  "execution": {
+    "dataset": "holdings",
+    "timeoutSeconds": 30,
+    "maxRows": 5000,
+    "sql": "SELECT Symbol, COUNT(*) AS Accounts, SUM(MarketValue) AS TotalMarketValue FROM holdings WHERE FirmId = @firmId AND MarketValue >= @minValue GROUP BY Symbol ORDER BY TotalMarketValue DESC"
+  },
+  "parameters": [
+    { "name": "firmId", "source": "firm", "type": "integer", "required": true, "hidden": true },
+    { "name": "minValue", "label": "Minimum position value", "type": "number", "control": "number", "required": false, "default": 0, "min": 0 }
+  ],
+  "result": {
+    "title": "Market value by security",
+    "defaultPageSize": 25,
+    "export": ["csv"],
+    "columns": [
+      { "field": "Symbol", "label": "Symbol", "type": "string" },
+      { "field": "Accounts", "label": "# Positions", "type": "integer" },
+      { "field": "TotalMarketValue", "label": "Total Market Value", "type": "currency" }
+    ]
+  },
+  "tags": ["holdings", "aggregate", "reporting"]
+}

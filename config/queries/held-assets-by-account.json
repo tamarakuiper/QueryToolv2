@@ -1,0 +1,48 @@
+{
+  "id": "held-assets-by-account",
+  "version": 1,
+  "name": "13F - Held Assets by Account",
+  "description": "Currently held assets by account for the firm, filtered by asset class.",
+  "category": "Holdings",
+  "enabled": true,
+  "scope": { "type": "global" },
+  "access": { "groups": ["operations", "advisors", "compliance"], "adminOnly": false },
+  "execution": {
+    "dataset": "holdings",
+    "timeoutSeconds": 30,
+    "maxRows": 5000,
+    "sql": "SELECT AccountId, Symbol, SecurityName, AssetClass, Quantity, MarketValue FROM holdings WHERE FirmId = @firmId AND AssetClass IN @assetClasses ORDER BY MarketValue DESC"
+  },
+  "parameters": [
+    { "name": "firmId", "source": "firm", "type": "integer", "required": true, "hidden": true },
+    {
+      "name": "assetClasses",
+      "label": "Asset class",
+      "type": "string[]",
+      "control": "multiSelect",
+      "required": true,
+      "default": ["Equity", "ETF", "Fixed Income", "Cash", "Alternative"],
+      "options": [
+        { "value": "Equity", "label": "Equity" },
+        { "value": "ETF", "label": "ETF" },
+        { "value": "Fixed Income", "label": "Fixed Income" },
+        { "value": "Cash", "label": "Cash" },
+        { "value": "Alternative", "label": "Alternative" }
+      ]
+    }
+  ],
+  "result": {
+    "title": "Held assets",
+    "defaultPageSize": 25,
+    "export": ["csv"],
+    "columns": [
+      { "field": "AccountId", "label": "Account #", "type": "integer" },
+      { "field": "Symbol", "label": "Symbol", "type": "string" },
+      { "field": "SecurityName", "label": "Security", "type": "string" },
+      { "field": "AssetClass", "label": "Asset Class", "type": "badge" },
+      { "field": "Quantity", "label": "Quantity", "type": "number" },
+      { "field": "MarketValue", "label": "Market Value", "type": "currency" }
+    ]
+  },
+  "tags": ["holdings", "13f", "reporting"]
+}

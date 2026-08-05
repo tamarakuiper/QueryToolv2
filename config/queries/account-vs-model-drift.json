@@ -1,0 +1,47 @@
+{
+  "id": "account-vs-model-drift",
+  "version": 1,
+  "name": "Account vs Model",
+  "description": "Proposal accounts with model, composite, rebalance threshold, advisor and status for the firm.",
+  "category": "Proposal Central",
+  "enabled": true,
+  "scope": { "type": "global" },
+  "access": { "groups": ["operations", "advisors"], "adminOnly": false },
+  "execution": {
+    "dataset": "proposalaccounts",
+    "timeoutSeconds": 30,
+    "maxRows": 5000,
+    "sql": "SELECT AccountId, Model, Composite, RebalanceThresholdPct, Advisor, ProposalAccountStatus FROM proposalaccounts WHERE FirmId = @firmId AND ProposalAccountStatus IN @statuses ORDER BY AccountId ASC"
+  },
+  "parameters": [
+    { "name": "firmId", "source": "firm", "type": "integer", "required": true, "hidden": true },
+    {
+      "name": "statuses",
+      "label": "Proposal status",
+      "type": "string[]",
+      "control": "multiSelect",
+      "required": true,
+      "default": ["Active", "Pending", "Suspended", "Closed"],
+      "options": [
+        { "value": "Active", "label": "Active" },
+        { "value": "Pending", "label": "Pending" },
+        { "value": "Suspended", "label": "Suspended" },
+        { "value": "Closed", "label": "Closed" }
+      ]
+    }
+  ],
+  "result": {
+    "title": "Account vs model drift",
+    "defaultPageSize": 25,
+    "export": ["csv"],
+    "columns": [
+      { "field": "AccountId", "label": "Account #", "type": "integer" },
+      { "field": "Model", "label": "Model", "type": "badge" },
+      { "field": "Composite", "label": "Composite", "type": "string" },
+      { "field": "RebalanceThresholdPct", "label": "Rebal %", "type": "number" },
+      { "field": "Advisor", "label": "Advisor", "type": "string" },
+      { "field": "ProposalAccountStatus", "label": "Status", "type": "badge" }
+    ]
+  },
+  "tags": ["proposal", "drift", "model"]
+}

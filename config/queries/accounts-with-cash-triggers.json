@@ -1,0 +1,50 @@
+{
+  "id": "accounts-with-cash-triggers",
+  "version": 1,
+  "name": "Accounts with Cash Triggers",
+  "description": "Proposal accounts and their cash trigger, floor/ceiling and trading settings.",
+  "category": "Proposal Central",
+  "enabled": true,
+  "scope": { "type": "global" },
+  "access": { "groups": ["operations", "advisors"], "adminOnly": false },
+  "execution": {
+    "dataset": "proposalaccounts",
+    "timeoutSeconds": 30,
+    "maxRows": 5000,
+    "sql": "SELECT AccountId, ProposalAccountId, Model, CashTriggerLowPct, CashTriggerHighPct, FloorAmount, CeilingAmount, TradingEnabled FROM proposalaccounts WHERE FirmId = @firmId AND Model IN @models ORDER BY AccountId ASC"
+  },
+  "parameters": [
+    { "name": "firmId", "source": "firm", "type": "integer", "required": true, "hidden": true },
+    {
+      "name": "models",
+      "label": "Model",
+      "type": "string[]",
+      "control": "multiSelect",
+      "required": true,
+      "default": ["Aggressive", "Growth", "Balanced", "Conservative", "Income"],
+      "options": [
+        { "value": "Aggressive", "label": "Aggressive" },
+        { "value": "Growth", "label": "Growth" },
+        { "value": "Balanced", "label": "Balanced" },
+        { "value": "Conservative", "label": "Conservative" },
+        { "value": "Income", "label": "Income" }
+      ]
+    }
+  ],
+  "result": {
+    "title": "Cash trigger settings",
+    "defaultPageSize": 25,
+    "export": ["csv"],
+    "columns": [
+      { "field": "AccountId", "label": "Account #", "type": "integer" },
+      { "field": "ProposalAccountId", "label": "Proposal Acct", "type": "integer" },
+      { "field": "Model", "label": "Model", "type": "badge" },
+      { "field": "CashTriggerLowPct", "label": "Trigger Low %", "type": "number" },
+      { "field": "CashTriggerHighPct", "label": "Trigger High %", "type": "number" },
+      { "field": "FloorAmount", "label": "Floor", "type": "currency" },
+      { "field": "CeilingAmount", "label": "Ceiling", "type": "currency" },
+      { "field": "TradingEnabled", "label": "Trading", "type": "badge" }
+    ]
+  },
+  "tags": ["proposal", "cash-triggers", "trading"]
+}

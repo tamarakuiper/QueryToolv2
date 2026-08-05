@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>QueryTool</title>
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <link rel="icon" href="assets/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div id="app"></div>
+
+  <!-- order matters: engine + generator + formatting, then store, then app -->
+  <script src="js/sqlengine.js"></script>
+  <script src="js/sqlllm.js"></script>
+  <script src="js/format.js"></script>
+  <script src="js/pii.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/policy.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
