@@ -315,3 +315,75 @@ pre.json { background: #1c1c1c; color: #e6e6e6; border-radius: 10px; padding: 18
   flex-basis: 82px;
   border-radius: 14px;
 }
+
+/* Presentation background */
+html {
+  min-height: 100%;
+  background: #ffffff;
+}
+
+body {
+  min-height: 100vh;
+  background-color: #ffffff;
+  background-image: url("../assets/background.png");
+  background-position: center top;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* Keep the app readable while allowing the artwork to frame it. */
+.topbar {
+  background: rgba(255, 255, 255, 0.92);
+}
+
+@media (max-width: 820px) {
+  body {
+    background-attachment: scroll;
+    background-position: center top;
+  }
+}
+
+/* =========================================================
+   Solid content background
+   Keeps page text readable over the presentation artwork
+   ========================================================= */
+
+main.content {
+  width: min(1240px, calc(100% - 48px));
+  margin: 32px auto 48px;
+  padding: clamp(24px, 3vw, 40px);
+
+  background: #ffffff;
+  border: 1px solid rgba(1, 41, 92, 0.14);
+  border-radius: 20px;
+
+  box-shadow:
+    0 4px 12px rgba(1, 41, 92, 0.08),
+    0 22px 50px rgba(1, 41, 92, 0.12);
+}
+
+/* Prevent headings and paragraphs from becoming too wide */
+main.content > .stack {
+  width: 100%;
+}
+
+/* Smaller windows and tablets */
+@media (max-width: 820px) {
+  main.content {
+    width: calc(100% - 24px);
+    margin: 18px auto 28px;
+    padding: 22px 18px;
+    border-radius: 16px;
+  }
+}
+
+/* Very small phone-sized windows */
+@media (max-width: 480px) {
+  main.content {
+    width: calc(100% - 12px);
+    margin: 8px auto 18px;
+    padding: 18px 12px;
+    border-radius: 12px;
+  }
+}
