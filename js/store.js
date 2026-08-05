@@ -348,14 +348,105 @@
 
   function reportLocationFor(user) { return (user && user.reportLocation) || '/reports/shared'; }
 
+  function daysInMonth(year, monthIndex) {
+    return new Date(year, monthIndex + 1, 0).getDate();
+  }
+  function normalizeWeekdays(days, fallbackDay) {
+    const arr = Array.isArray(days) ? days.map(n => Number(n)).filter(n => Number.isInteger(n) && n >= 0 && n <= 6) : [];
+    const uniq = [...new Set(arr)].sort((a, b) => a - b);
+    return uniq.length ? uniq : [fallbackDay];
+  }
+  function nextMonthlyRun(prevRunAt, dayOfMonth, useLastDay, nowMs) {
+    const prev = new Date(prevRunAt);
+    const h = prev.getHours(), m = prev.getMinutes(), s = prev.getSeconds(), ms = prev.getMilliseconds();
+    let y = prev.getFullYear();
+    let mo = prev.getMonth() + 1;
+    if (mo > 11) { mo = 0; y += 1; }
+    let next;
+    do {
+      const dim = daysInMonth(y, mo);
+      const d = useLastDay ? dim : Math.min(Math.max(1, dayOfMonth || prev.getDate()), dim);
+      next = new Date(y, mo, d, h, m, s, ms);
+      if (next.getTime() > nowMs) break;
+      mo += 1;
+      if (mo > 11) { mo = 0; y += 1; }
+    } while (true);
+    return next.toISOString();
+  }
+  function nextQuarterlyRun(prevRunAt, dayOfMonth, useLastDay, nowMs) {
+    const prev = new Date(prevRunAt);
+    const h = prev.getHours(), m = prev.getMinutes(), s = prev.getSeconds(), ms = prev.getMilliseconds();
+    const quarterMonths = [0, 3, 6, 9]; // Jan/Apr/Jul/Oct
+    let y = prev.getFullYear();
+    const mo = prev.getMonth();
+    let nextQ = quarterMonths.find(qm => qm > mo);
+    if (nextQ == null) { nextQ = 0; y += 1; }
+
+    let next;
+    do {
+      const dim = daysInMonth(y, nextQ);
+      const d = useLastDay ? dim : Math.min(Math.max(1, dayOfMonth || prev.getDate()), dim);
+      next = new Date(y, nextQ, d, h, m, s, ms);
+      if (next.getTime() > nowMs) break;
+      nextQ += 3;
+      if (nextQ > 11) { nextQ = 0; y += 1; }
+    } while (true);
+    return next.toISOString();
+  }
+  function advanceRecurringSchedule(s) {
+    const nowMs = Date.now();
+    if (s.recurrence === 'daily') {
+      let next = Date.parse(s.runAt) + 86400000;
+      while (next <= nowMs) next += 86400000;
+      s.runAt = new Date(next).toISOString();
+      s.status = 'scheduled';
+      return;
+    }
+    if (s.recurrence === 'weekly') {
+      const prev = new Date(s.runAt);
+      const allowedDays = normalizeWeekdays(s.recurrenceRule && s.recurrenceRule.weekdays, prev.getDay());
+      const next = new Date(prev);
+      do {
+        next.setDate(next.getDate() + 1);
+      } while (next.getTime() <= nowMs || !allowedDays.includes(next.getDay()));
+      s.runAt = next.toISOString();
+      s.status = 'scheduled';
+      return;
+    }
+    if (s.recurrence === 'monthly') {
+      const rule = s.recurrenceRule || {};
+      s.runAt = nextMonthlyRun(
+        s.runAt,
+        Number(rule.dayOfMonth) || new Date(s.runAt).getDate(),
+        !!rule.useLastDay,
+        nowMs
+      );
+      s.status = 'scheduled';
+      return;
+    }
+    if (s.recurrence === 'quarterly') {
+      const rule = s.recurrenceRule || {};
+      s.runAt = nextQuarterlyRun(
+        s.runAt,
+        Number(rule.dayOfMonth) || new Date(s.runAt).getDate(),
+        !!rule.useLastDay,
+        nowMs
+      );
+      s.status = 'scheduled';
+      return;
+    }
+    s.status = 'completed';
+  }
+
   // spec: { kind:'query'|'sql', queryId, params, sql, dataset, name, firmId, runAt(ISO),
-  //         recurrence:'once'|'daily', reportLocation }
+  //         recurrence:'once'|'daily'|'weekly'|'monthly'|'quarterly', recurrenceRule, reportLocation }
   function createSchedule(spec) {
     const list = readSchedules();
     const sched = Object.assign({
       id: uid('sch'), status: 'scheduled', createdBy: state.user ? state.user.email : 'anonymous',
-      createdAt: new Date().toISOString(), lastRunAt: null, lastReportId: null, recurrence: 'once'
+      createdAt: new Date().toISOString(), lastRunAt: null, lastReportId: null, recurrence: 'once', recurrenceRule: null
     }, spec);
+    if (!['once', 'daily', 'weekly', 'monthly', 'quarterly'].includes(sched.recurrence)) sched.recurrence = 'once';
     list.push(sched);
     writeSchedules(list);
     return sched;
@@ -407,18 +498,11 @@
     const report = saveReport({
       scheduleId: s.id, name: s.name, firmId: s.firmId, location: s.reportLocation,
       columns: res.columns, rows: res.rows, meta: res.meta, pii, createdBy: s.createdBy,
-      queryId: s.queryId || 'sql-assistant'
+      queryId: s.queryId || 'sql-assistant', recurrence: s.recurrence, recurrenceRule: s.recurrenceRule || null
     });
 
     s.lastRunAt = now; s.lastReportId = report.id;
-    if (s.recurrence === 'daily') {
-      let next = Date.parse(s.runAt) + 86400000;
-      while (next <= Date.now()) next += 86400000;
-      s.runAt = new Date(next).toISOString();
-      s.status = 'scheduled';
-    } else {
-      s.status = 'completed';
-    }
+    advanceRecurringSchedule(s);
     writeSchedules(list);
     return report;
   }

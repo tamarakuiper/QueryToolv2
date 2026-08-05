@@ -1,31 +1,1313 @@
 [
-  {"TxnId": 90001, "FirmId": 101, "AccountId": 1001, "TxnDate": "2026-07-28", "TxnType": "Buy", "Symbol": "AAPL", "Amount": 51600.0, "Advisor": "Maria Lopez"},
-  {"TxnId": 90002, "FirmId": 101, "AccountId": 1001, "TxnDate": "2026-07-30", "TxnType": "Dividend", "Symbol": "VTI", "Amount": 2340.0, "Advisor": "Maria Lopez"},
-  {"TxnId": 90003, "FirmId": 101, "AccountId": 1002, "TxnDate": "2026-07-15", "TxnType": "Deposit", "Symbol": "CASH", "Amount": 25000.0, "Advisor": "John Snow"},
-  {"TxnId": 90004, "FirmId": 101, "AccountId": 1004, "TxnDate": "2026-07-22", "TxnType": "Sell", "Symbol": "NVDA", "Amount": 172000.0, "Advisor": "John Snow"},
-  {"TxnId": 90005, "FirmId": 101, "AccountId": 1005, "TxnDate": "2026-07-31", "TxnType": "Buy", "Symbol": "SPY", "Amount": 660000.0, "Advisor": "Maria Lopez"},
-  {"TxnId": 90006, "FirmId": 101, "AccountId": 1005, "TxnDate": "2026-06-11", "TxnType": "Fee", "Symbol": "FEE", "Amount": 4500.0, "Advisor": "Maria Lopez"},
-  {"TxnId": 90007, "FirmId": 101, "AccountId": 1006, "TxnDate": "2026-07-19", "TxnType": "Withdrawal", "Symbol": "CASH", "Amount": 12000.0, "Advisor": "John Snow"},
-  {"TxnId": 90008, "FirmId": 101, "AccountId": 1010, "TxnDate": "2026-07-25", "TxnType": "Buy", "Symbol": "AMZN", "Amount": 84000.0, "Advisor": "John Snow"},
-  {"TxnId": 91001, "FirmId": 205, "AccountId": 2001, "TxnDate": "2026-07-29", "TxnType": "Buy", "Symbol": "TSLA", "Amount": 270000.0, "Advisor": "Aisha Khan"},
-  {"TxnId": 91002, "FirmId": 205, "AccountId": 2002, "TxnDate": "2026-07-30", "TxnType": "Sell", "Symbol": "BRK.B", "Amount": 900000.0, "Advisor": "George Guerrero"},
-  {"TxnId": 91003, "FirmId": 205, "AccountId": 2002, "TxnDate": "2026-07-31", "TxnType": "Dividend", "Symbol": "MUB", "Amount": 18400.0, "Advisor": "George Guerrero"},
-  {"TxnId": 91004, "FirmId": 205, "AccountId": 2003, "TxnDate": "2026-07-12", "TxnType": "Deposit", "Symbol": "CASH", "Amount": 50000.0, "Advisor": "Aisha Khan"},
-  {"TxnId": 91005, "FirmId": 205, "AccountId": 2005, "TxnDate": "2026-07-27", "TxnType": "Buy", "Symbol": "SCHD", "Amount": 41200.0, "Advisor": "Aisha Khan"},
-  {"TxnId": 91006, "FirmId": 205, "AccountId": 2007, "TxnDate": "2026-06-30", "TxnType": "Fee", "Symbol": "FEE", "Amount": 1450.0, "Advisor": "Aisha Khan"},
-  {"TxnId": 92001, "FirmId": 310, "AccountId": 3001, "TxnDate": "2026-07-31", "TxnType": "Buy", "Symbol": "VOO", "Amount": 472000.0, "Advisor": "David Chen"},
-  {"TxnId": 92002, "FirmId": 310, "AccountId": 3001, "TxnDate": "2026-07-20", "TxnType": "Dividend", "Symbol": "TLT", "Amount": 33000.0, "Advisor": "David Chen"},
-  {"TxnId": 92003, "FirmId": 310, "AccountId": 3002, "TxnDate": "2026-07-18", "TxnType": "Sell", "Symbol": "JPM", "Amount": 30000.0, "Advisor": "David Chen"},
-  {"TxnId": 92004, "FirmId": 310, "AccountId": 3004, "TxnDate": "2026-07-26", "TxnType": "Buy", "Symbol": "REET", "Amount": 97500.0, "Advisor": "David Chen"},
-  {"TxnId": 92005, "FirmId": 310, "AccountId": 3004, "TxnDate": "2026-07-05", "TxnType": "Withdrawal", "Symbol": "CASH", "Amount": 60000.0, "Advisor": "David Chen"},
-  {"TxnId": 93001, "FirmId": 415, "AccountId": 4001, "TxnDate": "2026-07-30", "TxnType": "Buy", "Symbol": "COST", "Amount": 135000.0, "Advisor": "Tomas Rivera"},
-  {"TxnId": 93002, "FirmId": 415, "AccountId": 4004, "TxnDate": "2026-07-29", "TxnType": "Buy", "Symbol": "VUG", "Amount": 420000.0, "Advisor": "Priya Nair"},
-  {"TxnId": 93003, "FirmId": 415, "AccountId": 4004, "TxnDate": "2026-07-22", "TxnType": "Dividend", "Symbol": "VNQ", "Amount": 14200.0, "Advisor": "Priya Nair"},
-  {"TxnId": 93004, "FirmId": 415, "AccountId": 4002, "TxnDate": "2026-07-14", "TxnType": "Deposit", "Symbol": "CASH", "Amount": 40000.0, "Advisor": "Priya Nair"},
-  {"TxnId": 93005, "FirmId": 415, "AccountId": 4006, "TxnDate": "2026-06-28", "TxnType": "Fee", "Symbol": "FEE", "Amount": 2260.0, "Advisor": "Priya Nair"},
-  {"TxnId": 94001, "FirmId": 520, "AccountId": 4501, "TxnDate": "2026-07-31", "TxnType": "Buy", "Symbol": "IVV", "Amount": 576000.0, "Advisor": "Samuel Osei"},
-  {"TxnId": 94002, "FirmId": 520, "AccountId": 4501, "TxnDate": "2026-07-24", "TxnType": "Dividend", "Symbol": "BND", "Amount": 9125.0, "Advisor": "Samuel Osei"},
-  {"TxnId": 94003, "FirmId": 520, "AccountId": 4504, "TxnDate": "2026-07-19", "TxnType": "Sell", "Symbol": "VTV", "Amount": 320000.0, "Advisor": "Grace Kim"},
-  {"TxnId": 94004, "FirmId": 520, "AccountId": 4502, "TxnDate": "2026-07-11", "TxnType": "Buy", "Symbol": "V", "Amount": 87000.0, "Advisor": "Grace Kim"},
-  {"TxnId": 94005, "FirmId": 520, "AccountId": 4505, "TxnDate": "2026-07-03", "TxnType": "Withdrawal", "Symbol": "CASH", "Amount": 15000.0, "Advisor": "Samuel Osei"}
+  {
+    "TxnId": 90001,
+    "FirmId": 101,
+    "AccountId": 10001001,
+    "TxnDate": "2026-07-28",
+    "TxnType": "Buy",
+    "Symbol": "AAPL",
+    "Amount": 51600,
+    "Advisor": "Maria Lopez"
+  },
+  {
+    "TxnId": 90002,
+    "FirmId": 101,
+    "AccountId": 10001001,
+    "TxnDate": "2026-07-30",
+    "TxnType": "Dividend",
+    "Symbol": "VTI",
+    "Amount": 2340,
+    "Advisor": "Maria Lopez"
+  },
+  {
+    "TxnId": 90003,
+    "FirmId": 101,
+    "AccountId": 10001002,
+    "TxnDate": "2026-07-15",
+    "TxnType": "Deposit",
+    "Symbol": "CASH",
+    "Amount": 25000,
+    "Advisor": "John Snow"
+  },
+  {
+    "TxnId": 90004,
+    "FirmId": 101,
+    "AccountId": 10001004,
+    "TxnDate": "2026-07-22",
+    "TxnType": "Sell",
+    "Symbol": "NVDA",
+    "Amount": 172000,
+    "Advisor": "John Snow"
+  },
+  {
+    "TxnId": 90005,
+    "FirmId": 101,
+    "AccountId": 10001005,
+    "TxnDate": "2026-07-31",
+    "TxnType": "Buy",
+    "Symbol": "SPY",
+    "Amount": 660000,
+    "Advisor": "Maria Lopez"
+  },
+  {
+    "TxnId": 90006,
+    "FirmId": 101,
+    "AccountId": 10001005,
+    "TxnDate": "2026-06-11",
+    "TxnType": "Fee",
+    "Symbol": "FEE",
+    "Amount": 4500,
+    "Advisor": "Maria Lopez"
+  },
+  {
+    "TxnId": 90007,
+    "FirmId": 101,
+    "AccountId": 10001006,
+    "TxnDate": "2026-07-19",
+    "TxnType": "Withdrawal",
+    "Symbol": "CASH",
+    "Amount": 12000,
+    "Advisor": "John Snow"
+  },
+  {
+    "TxnId": 90008,
+    "FirmId": 101,
+    "AccountId": 10001010,
+    "TxnDate": "2026-07-25",
+    "TxnType": "Buy",
+    "Symbol": "AMZN",
+    "Amount": 84000,
+    "Advisor": "John Snow"
+  },
+  {
+    "TxnId": 91001,
+    "FirmId": 205,
+    "AccountId": 10002001,
+    "TxnDate": "2026-07-29",
+    "TxnType": "Buy",
+    "Symbol": "TSLA",
+    "Amount": 270000,
+    "Advisor": "Aisha Khan"
+  },
+  {
+    "TxnId": 91002,
+    "FirmId": 205,
+    "AccountId": 10002002,
+    "TxnDate": "2026-07-30",
+    "TxnType": "Sell",
+    "Symbol": "BRK.B",
+    "Amount": 900000,
+    "Advisor": "George Guerrero"
+  },
+  {
+    "TxnId": 91003,
+    "FirmId": 205,
+    "AccountId": 10002002,
+    "TxnDate": "2026-07-31",
+    "TxnType": "Dividend",
+    "Symbol": "MUB",
+    "Amount": 18400,
+    "Advisor": "George Guerrero"
+  },
+  {
+    "TxnId": 91004,
+    "FirmId": 205,
+    "AccountId": 10002003,
+    "TxnDate": "2026-07-12",
+    "TxnType": "Deposit",
+    "Symbol": "CASH",
+    "Amount": 50000,
+    "Advisor": "Aisha Khan"
+  },
+  {
+    "TxnId": 91005,
+    "FirmId": 205,
+    "AccountId": 10002005,
+    "TxnDate": "2026-07-27",
+    "TxnType": "Buy",
+    "Symbol": "SCHD",
+    "Amount": 41200,
+    "Advisor": "Aisha Khan"
+  },
+  {
+    "TxnId": 91006,
+    "FirmId": 205,
+    "AccountId": 10002007,
+    "TxnDate": "2026-06-30",
+    "TxnType": "Fee",
+    "Symbol": "FEE",
+    "Amount": 1450,
+    "Advisor": "Aisha Khan"
+  },
+  {
+    "TxnId": 92001,
+    "FirmId": 310,
+    "AccountId": 10003001,
+    "TxnDate": "2026-07-31",
+    "TxnType": "Buy",
+    "Symbol": "VOO",
+    "Amount": 472000,
+    "Advisor": "David Chen"
+  },
+  {
+    "TxnId": 92002,
+    "FirmId": 310,
+    "AccountId": 10003001,
+    "TxnDate": "2026-07-20",
+    "TxnType": "Dividend",
+    "Symbol": "TLT",
+    "Amount": 33000,
+    "Advisor": "David Chen"
+  },
+  {
+    "TxnId": 92003,
+    "FirmId": 310,
+    "AccountId": 10003002,
+    "TxnDate": "2026-07-18",
+    "TxnType": "Sell",
+    "Symbol": "JPM",
+    "Amount": 30000,
+    "Advisor": "David Chen"
+  },
+  {
+    "TxnId": 92004,
+    "FirmId": 310,
+    "AccountId": 10003004,
+    "TxnDate": "2026-07-26",
+    "TxnType": "Buy",
+    "Symbol": "REET",
+    "Amount": 97500,
+    "Advisor": "David Chen"
+  },
+  {
+    "TxnId": 92005,
+    "FirmId": 310,
+    "AccountId": 10003004,
+    "TxnDate": "2026-07-05",
+    "TxnType": "Withdrawal",
+    "Symbol": "CASH",
+    "Amount": 60000,
+    "Advisor": "David Chen"
+  },
+  {
+    "TxnId": 93001,
+    "FirmId": 415,
+    "AccountId": 10004001,
+    "TxnDate": "2026-07-30",
+    "TxnType": "Buy",
+    "Symbol": "COST",
+    "Amount": 135000,
+    "Advisor": "Tomas Rivera"
+  },
+  {
+    "TxnId": 93002,
+    "FirmId": 415,
+    "AccountId": 10004004,
+    "TxnDate": "2026-07-29",
+    "TxnType": "Buy",
+    "Symbol": "VUG",
+    "Amount": 420000,
+    "Advisor": "Priya Nair"
+  },
+  {
+    "TxnId": 93003,
+    "FirmId": 415,
+    "AccountId": 10004004,
+    "TxnDate": "2026-07-22",
+    "TxnType": "Dividend",
+    "Symbol": "VNQ",
+    "Amount": 14200,
+    "Advisor": "Priya Nair"
+  },
+  {
+    "TxnId": 93004,
+    "FirmId": 415,
+    "AccountId": 10004002,
+    "TxnDate": "2026-07-14",
+    "TxnType": "Deposit",
+    "Symbol": "CASH",
+    "Amount": 40000,
+    "Advisor": "Priya Nair"
+  },
+  {
+    "TxnId": 93005,
+    "FirmId": 415,
+    "AccountId": 10004006,
+    "TxnDate": "2026-06-28",
+    "TxnType": "Fee",
+    "Symbol": "FEE",
+    "Amount": 2260,
+    "Advisor": "Priya Nair"
+  },
+  {
+    "TxnId": 94001,
+    "FirmId": 520,
+    "AccountId": 10004501,
+    "TxnDate": "2026-07-31",
+    "TxnType": "Buy",
+    "Symbol": "IVV",
+    "Amount": 576000,
+    "Advisor": "Samuel Osei"
+  },
+  {
+    "TxnId": 94002,
+    "FirmId": 520,
+    "AccountId": 10004501,
+    "TxnDate": "2026-07-24",
+    "TxnType": "Dividend",
+    "Symbol": "BND",
+    "Amount": 9125,
+    "Advisor": "Samuel Osei"
+  },
+  {
+    "TxnId": 94003,
+    "FirmId": 520,
+    "AccountId": 10004504,
+    "TxnDate": "2026-07-19",
+    "TxnType": "Sell",
+    "Symbol": "VTV",
+    "Amount": 320000,
+    "Advisor": "Grace Kim"
+  },
+  {
+    "TxnId": 94004,
+    "FirmId": 520,
+    "AccountId": 10004502,
+    "TxnDate": "2026-07-11",
+    "TxnType": "Buy",
+    "Symbol": "V",
+    "Amount": 87000,
+    "Advisor": "Grace Kim"
+  },
+  {
+    "TxnId": 94005,
+    "FirmId": 520,
+    "AccountId": 10004505,
+    "TxnDate": "2026-07-03",
+    "TxnType": "Withdrawal",
+    "Symbol": "CASH",
+    "Amount": 15000,
+    "Advisor": "Samuel Osei"
+  },
+  {
+    "TxnId": 94006,
+    "FirmId": 415,
+    "AccountId": 10004607,
+    "TxnDate": "2026-05-11",
+    "TxnType": "Deposit",
+    "Symbol": "CASH",
+    "Amount": 87576.08,
+    "Advisor": "Priya Nair"
+  },
+  {
+    "TxnId": 94007,
+    "FirmId": 205,
+    "AccountId": 10004608,
+    "TxnDate": "2025-03-01",
+    "TxnType": "Sell",
+    "Symbol": "VTV",
+    "Amount": 38118.12,
+    "Advisor": "George Guerrero"
+  },
+  {
+    "TxnId": 94008,
+    "FirmId": 205,
+    "AccountId": 10004608,
+    "TxnDate": "2025-11-02",
+    "TxnType": "Deposit",
+    "Symbol": "CASH",
+    "Amount": 39464.82,
+    "Advisor": "George Guerrero"
+  },
+  {
+    "TxnId": 94009,
+    "FirmId": 101,
+    "AccountId": 10004609,
+    "TxnDate": "2025-04-19",
+    "TxnType": "Deposit",
+    "Symbol": "CASH",
+    "Amount": 164195.31,
+    "Advisor": "John Snow"
+  },
+  {
+    "TxnId": 94010,
+    "FirmId": 101,
+    "AccountId": 10004609,
+    "TxnDate": "2026-01-18",
+    "TxnType": "Dividend",
+    "Symbol": "VOO",
+    "Amount": 14858.62,
+    "Advisor": "John Snow"
+  },
+  {
+    "TxnId": 94011,
+    "FirmId": 520,
+    "AccountId": 10004612,
+    "TxnDate": "2026-07-17",
+    "TxnType": "Deposit",
+    "Symbol": "CASH",
+    "Amount": 21255.2,
+    "Advisor": "Samuel Osei"
+  },
+  {
+    "TxnId": 94012,
+    "FirmId": 520,
+    "AccountId": 10004612,
+    "TxnDate": "2026-07-25",
+    "TxnType": "Sell",
+    "Symbol": "TLT",
+    "Amount": 70188.73,
+    "Advisor": "Samuel Osei"
+  },
+  {
+    "TxnId": 94013,
+    "FirmId": 520,
+    "AccountId": 10004612,
+    "TxnDate": "2026-08-02",
+    "TxnType": "Sell",
+    "Symbol": "VBK",
+    "Amount": 13777.26,
+    "Advisor": "Samuel Osei"
+  },
+  {
+    "TxnId": 94014,
+    "FirmId": 520,
+    "AccountId": 10004612,
+    "TxnDate": "2026-08-01",
+    "TxnType": "Sell",
+    "Symbol": "VOO",
+    "Amount": 88554.51,
+    "Advisor": "Samuel Osei"
+  },
+  {
+    "TxnId": 94015,
+    "FirmId": 205,
+    "AccountId": 10004614,
+    "TxnDate": "2025-01-29",
+    "TxnType": "Buy",
+    "Symbol": "GOOGL",
+    "Amount": 900000,
+    "Advisor": "George Guerrero"
+  },
+  {
+    "TxnId": 94016,
+    "FirmId": 310,
+    "AccountId": 10004619,
+    "TxnDate": "2026-08-03",
+    "TxnType": "Dividend",
+    "Symbol": "VTI",
+    "Amount": 17138.79,
+    "Advisor": "David Chen"
+  },
+  {
+    "TxnId": 94017,
+    "FirmId": 205,
+    "AccountId": 10004620,
+    "TxnDate": "2026-01-14",
+    "TxnType": "Deposit",
+    "Symbol": "CASH",
+    "Amount": 80754.22,
+    "Advisor": "Aisha Khan"
+  },
+  {
+    "TxnId": 94018,
+    "FirmId": 205,
+    "AccountId": 10004620,
+    "TxnDate": "2025-01-13",
+    "TxnType": "Sell",
+    "Symbol": "MUB",
+    "Amount": 378715.57,
+    "Advisor": "Aisha Khan"
+  },
+  {
+    "TxnId": 94019,
+    "FirmId": 415,
+    "AccountId": 10004622,
+    "TxnDate": "2026-08-05",
+    "TxnType": "Deposit",
+    "Symbol": "CASH",
+    "Amount": 350000,
+    "Advisor": "Tomas Rivera"
+  },
+  {
+    "TxnId": 94020,
+    "FirmId": 415,
+    "AccountId": 10004622,
+    "TxnDate": "2026-01-27",
+    "TxnType": "Deposit",
+    "Symbol": "CASH",
+    "Amount": 350000,
+    "Advisor": "Tomas Rivera"
+  },
+  {
+    "TxnId": 94021,
+    "FirmId": 415,
+    "AccountId": 10004622,
+    "TxnDate": "2025-10-08",
+    "TxnType": "Buy",
+    "Symbol": "TSLA",
+    "Amount": 396629.83,
+    "Advisor": "Tomas Rivera"
+  },
+  {
+    "TxnId": 94022,
+    "FirmId": 415,
+    "AccountId": 10004622,
+    "TxnDate": "2026-06-17",
+    "TxnType": "Deposit",
+    "Symbol": "CASH",
+    "Amount": 350000,
+    "Advisor": "Tomas Rivera"
+  },
+  {
+    "TxnId": 94023,
+    "FirmId": 205,
+    "AccountId": 10004623,
+    "TxnDate": "2025-08-24",
+    "TxnType": "Sell",
+    "Symbol": "VOO",
+    "Amount": 120108.55,
+    "Advisor": "George Guerrero"
+  },
+  {
+    "TxnId": 94024,
+    "FirmId": 205,
+    "AccountId": 10004623,
+    "TxnDate": "2025-05-03",
+    "TxnType": "Buy",
+    "Symbol": "VOO",
+    "Amount": 109893.43,
+    "Advisor": "George Guerrero"
+  },
+  {
+    "TxnId": 94025,
+    "FirmId": 205,
+    "AccountId": 10004625,
+    "TxnDate": "2026-08-04",
+    "TxnType": "Dividend",
+    "Symbol": "TLT",
+    "Amount": 5498.44,
+    "Advisor": "Aisha Khan"
+  },
+  {
+    "TxnId": 94026,
+    "FirmId": 101,
+    "AccountId": 10004626,
+    "TxnDate": "2025-03-28",
+    "TxnType": "Withdrawal",
+    "Symbol": "CASH",
+    "Amount": 220000,
+    "Advisor": "John Snow"
+  },
+  {
+    "TxnId": 94027,
+    "FirmId": 101,
+    "AccountId": 10004626,
+    "TxnDate": "2026-03-29",
+    "TxnType": "Sell",
+    "Symbol": "VOO",
+    "Amount": 900000,
+    "Advisor": "John Snow"
+  },
+  {
+    "TxnId": 94028,
+    "FirmId": 101,
+    "AccountId": 10004626,
+    "TxnDate": "2025-07-26",
+    "TxnType": "Withdrawal",
+    "Symbol": "CASH",
+    "Amount": 220000,
+    "Advisor": "John Snow"
+  },
+  {
+    "TxnId": 94029,
+    "FirmId": 205,
+    "AccountId": 10004627,
+    "TxnDate": "2025-09-13",
+    "TxnType": "Deposit",
+    "Symbol": "CASH",
+    "Amount": 350000,
+    "Advisor": "George Guerrero"
+  },
+  {
+    "TxnId": 94030,
+    "FirmId": 205,
+    "AccountId": 10004627,
+    "TxnDate": "2026-07-10",
+    "TxnType": "Buy",
+    "Symbol": "BND",
+    "Amount": 121287.38,
+    "Advisor": "George Guerrero"
+  },
+  {
+    "TxnId": 94031,
+    "FirmId": 205,
+    "AccountId": 10004627,
+    "TxnDate": "2026-07-29",
+    "TxnType": "Deposit",
+    "Symbol": "CASH",
+    "Amount": 350000,
+    "Advisor": "George Guerrero"
+  },
+  {
+    "TxnId": 94032,
+    "FirmId": 415,
+    "AccountId": 10004628,
+    "TxnDate": "2025-02-18",
+    "TxnType": "Deposit",
+    "Symbol": "CASH",
+    "Amount": 53409.64,
+    "Advisor": "Tomas Rivera"
+  },
+  {
+    "TxnId": 94033,
+    "FirmId": 101,
+    "AccountId": 10004633,
+    "TxnDate": "2026-06-29",
+    "TxnType": "Buy",
+    "Symbol": "JPM",
+    "Amount": 34159.7,
+    "Advisor": "Maria Lopez"
+  },
+  {
+    "TxnId": 94034,
+    "FirmId": 101,
+    "AccountId": 10004633,
+    "TxnDate": "2025-11-28",
+    "TxnType": "Buy",
+    "Symbol": "JPM",
+    "Amount": 30968.94,
+    "Advisor": "Maria Lopez"
+  },
+  {
+    "TxnId": 94035,
+    "FirmId": 101,
+    "AccountId": 10004633,
+    "TxnDate": "2026-05-31",
+    "TxnType": "Sell",
+    "Symbol": "VOO",
+    "Amount": 24704.4,
+    "Advisor": "Maria Lopez"
+  },
+  {
+    "TxnId": 94036,
+    "FirmId": 101,
+    "AccountId": 10004633,
+    "TxnDate": "2026-02-10",
+    "TxnType": "Withdrawal",
+    "Symbol": "CASH",
+    "Amount": 21258.27,
+    "Advisor": "Maria Lopez"
+  },
+  {
+    "TxnId": 94037,
+    "FirmId": 310,
+    "AccountId": 10004634,
+    "TxnDate": "2026-03-28",
+    "TxnType": "Sell",
+    "Symbol": "VUG",
+    "Amount": 900000,
+    "Advisor": "David Chen"
+  },
+  {
+    "TxnId": 94038,
+    "FirmId": 101,
+    "AccountId": 10004636,
+    "TxnDate": "2026-08-03",
+    "TxnType": "Buy",
+    "Symbol": "QQQ",
+    "Amount": 19033.43,
+    "Advisor": "Maria Lopez"
+  },
+  {
+    "TxnId": 94039,
+    "FirmId": 520,
+    "AccountId": 10004637,
+    "TxnDate": "2026-05-21",
+    "TxnType": "Dividend",
+    "Symbol": "VTV",
+    "Amount": 50000,
+    "Advisor": "Grace Kim"
+  },
+  {
+    "TxnId": 94040,
+    "FirmId": 205,
+    "AccountId": 10004638,
+    "TxnDate": "2025-06-08",
+    "TxnType": "Buy",
+    "Symbol": "UST10Y",
+    "Amount": 553018.31,
+    "Advisor": "Aisha Khan"
+  },
+  {
+    "TxnId": 94041,
+    "FirmId": 520,
+    "AccountId": 10004639,
+    "TxnDate": "2026-07-14",
+    "TxnType": "Dividend",
+    "Symbol": "USFR",
+    "Amount": 6116.57,
+    "Advisor": "Samuel Osei"
+  },
+  {
+    "TxnId": 94042,
+    "FirmId": 101,
+    "AccountId": 10004640,
+    "TxnDate": "2026-07-07",
+    "TxnType": "Deposit",
+    "Symbol": "CASH",
+    "Amount": 11993.59,
+    "Advisor": "John Snow"
+  },
+  {
+    "TxnId": 94043,
+    "FirmId": 310,
+    "AccountId": 10004642,
+    "TxnDate": "2026-02-08",
+    "TxnType": "Sell",
+    "Symbol": "VTI",
+    "Amount": 900000,
+    "Advisor": "David Chen"
+  },
+  {
+    "TxnId": 94044,
+    "FirmId": 101,
+    "AccountId": 10004643,
+    "TxnDate": "2026-07-30",
+    "TxnType": "Dividend",
+    "Symbol": "JPM",
+    "Amount": 33463.34,
+    "Advisor": "John Snow"
+  },
+  {
+    "TxnId": 94045,
+    "FirmId": 101,
+    "AccountId": 10004643,
+    "TxnDate": "2026-08-05",
+    "TxnType": "Sell",
+    "Symbol": "DIS",
+    "Amount": 73622.72,
+    "Advisor": "John Snow"
+  },
+  {
+    "TxnId": 94046,
+    "FirmId": 101,
+    "AccountId": 10004644,
+    "TxnDate": "2026-08-02",
+    "TxnType": "Dividend",
+    "Symbol": "IVV",
+    "Amount": 1801.68,
+    "Advisor": "John Snow"
+  },
+  {
+    "TxnId": 94047,
+    "FirmId": 520,
+    "AccountId": 10004646,
+    "TxnDate": "2026-07-05",
+    "TxnType": "Sell",
+    "Symbol": "TLT",
+    "Amount": 9240.29,
+    "Advisor": "Grace Kim"
+  },
+  {
+    "TxnId": 94048,
+    "FirmId": 520,
+    "AccountId": 10004646,
+    "TxnDate": "2026-01-16",
+    "TxnType": "Sell",
+    "Symbol": "TLT",
+    "Amount": 230787.93,
+    "Advisor": "Grace Kim"
+  },
+  {
+    "TxnId": 94049,
+    "FirmId": 101,
+    "AccountId": 10004649,
+    "TxnDate": "2026-03-02",
+    "TxnType": "Dividend",
+    "Symbol": "MUB",
+    "Amount": 708.24,
+    "Advisor": "John Snow"
+  },
+  {
+    "TxnId": 94050,
+    "FirmId": 101,
+    "AccountId": 10004650,
+    "TxnDate": "2025-06-26",
+    "TxnType": "Withdrawal",
+    "Symbol": "CASH",
+    "Amount": 33019.55,
+    "Advisor": "Maria Lopez"
+  },
+  {
+    "TxnId": 94051,
+    "FirmId": 101,
+    "AccountId": 10004650,
+    "TxnDate": "2025-03-12",
+    "TxnType": "Sell",
+    "Symbol": "IEF",
+    "Amount": 296428.79,
+    "Advisor": "Maria Lopez"
+  },
+  {
+    "TxnId": 94052,
+    "FirmId": 101,
+    "AccountId": 10004650,
+    "TxnDate": "2025-07-21",
+    "TxnType": "Buy",
+    "Symbol": "IEF",
+    "Amount": 40260.03,
+    "Advisor": "Maria Lopez"
+  },
+  {
+    "TxnId": 94053,
+    "FirmId": 101,
+    "AccountId": 10004651,
+    "TxnDate": "2026-07-15",
+    "TxnType": "Dividend",
+    "Symbol": "IEF",
+    "Amount": 1554.51,
+    "Advisor": "Maria Lopez"
+  },
+  {
+    "TxnId": 94054,
+    "FirmId": 101,
+    "AccountId": 10004653,
+    "TxnDate": "2025-02-16",
+    "TxnType": "Sell",
+    "Symbol": "NVDA",
+    "Amount": 203037.82,
+    "Advisor": "Maria Lopez"
+  },
+  {
+    "TxnId": 94055,
+    "FirmId": 101,
+    "AccountId": 10004655,
+    "TxnDate": "2026-08-04",
+    "TxnType": "Deposit",
+    "Symbol": "CASH",
+    "Amount": 36785.51,
+    "Advisor": "Maria Lopez"
+  },
+  {
+    "TxnId": 94056,
+    "FirmId": 101,
+    "AccountId": 10004655,
+    "TxnDate": "2026-07-06",
+    "TxnType": "Dividend",
+    "Symbol": "UST10Y",
+    "Amount": 1602.14,
+    "Advisor": "Maria Lopez"
+  },
+  {
+    "TxnId": 94057,
+    "FirmId": 415,
+    "AccountId": 10004656,
+    "TxnDate": "2026-06-22",
+    "TxnType": "Buy",
+    "Symbol": "UST10Y",
+    "Amount": 209739.31,
+    "Advisor": "Tomas Rivera"
+  },
+  {
+    "TxnId": 94058,
+    "FirmId": 415,
+    "AccountId": 10004656,
+    "TxnDate": "2025-06-01",
+    "TxnType": "Deposit",
+    "Symbol": "CASH",
+    "Amount": 100786.36,
+    "Advisor": "Tomas Rivera"
+  },
+  {
+    "TxnId": 94059,
+    "FirmId": 415,
+    "AccountId": 10004656,
+    "TxnDate": "2025-06-12",
+    "TxnType": "Dividend",
+    "Symbol": "QQQ",
+    "Amount": 4885.37,
+    "Advisor": "Tomas Rivera"
+  },
+  {
+    "TxnId": 94060,
+    "FirmId": 415,
+    "AccountId": 10004656,
+    "TxnDate": "2026-02-21",
+    "TxnType": "Buy",
+    "Symbol": "QQQ",
+    "Amount": 95653.46,
+    "Advisor": "Tomas Rivera"
+  },
+  {
+    "TxnId": 94061,
+    "FirmId": 101,
+    "AccountId": 10004660,
+    "TxnDate": "2026-08-04",
+    "TxnType": "Sell",
+    "Symbol": "VBK",
+    "Amount": 7855.24,
+    "Advisor": "Maria Lopez"
+  },
+  {
+    "TxnId": 94062,
+    "FirmId": 101,
+    "AccountId": 10004660,
+    "TxnDate": "2026-07-31",
+    "TxnType": "Withdrawal",
+    "Symbol": "CASH",
+    "Amount": 13004.6,
+    "Advisor": "Maria Lopez"
+  },
+  {
+    "TxnId": 94063,
+    "FirmId": 415,
+    "AccountId": 10004661,
+    "TxnDate": "2026-07-21",
+    "TxnType": "Buy",
+    "Symbol": "DIS",
+    "Amount": 255946,
+    "Advisor": "Priya Nair"
+  },
+  {
+    "TxnId": 94064,
+    "FirmId": 415,
+    "AccountId": 10004661,
+    "TxnDate": "2026-07-11",
+    "TxnType": "Buy",
+    "Symbol": "GLD",
+    "Amount": 108884.56,
+    "Advisor": "Priya Nair"
+  },
+  {
+    "TxnId": 94065,
+    "FirmId": 520,
+    "AccountId": 10004663,
+    "TxnDate": "2025-06-23",
+    "TxnType": "Deposit",
+    "Symbol": "CASH",
+    "Amount": 257690.09,
+    "Advisor": "Samuel Osei"
+  },
+  {
+    "TxnId": 94066,
+    "FirmId": 205,
+    "AccountId": 10004664,
+    "TxnDate": "2026-07-24",
+    "TxnType": "Withdrawal",
+    "Symbol": "CASH",
+    "Amount": 75310.61,
+    "Advisor": "Aisha Khan"
+  },
+  {
+    "TxnId": 94067,
+    "FirmId": 205,
+    "AccountId": 10004664,
+    "TxnDate": "2026-07-22",
+    "TxnType": "Sell",
+    "Symbol": "NVDA",
+    "Amount": 34858.68,
+    "Advisor": "Aisha Khan"
+  },
+  {
+    "TxnId": 94068,
+    "FirmId": 205,
+    "AccountId": 10004667,
+    "TxnDate": "2026-05-27",
+    "TxnType": "Sell",
+    "Symbol": "QQQ",
+    "Amount": 900000,
+    "Advisor": "George Guerrero"
+  },
+  {
+    "TxnId": 94069,
+    "FirmId": 205,
+    "AccountId": 10004667,
+    "TxnDate": "2025-11-09",
+    "TxnType": "Dividend",
+    "Symbol": "MUB",
+    "Amount": 50000,
+    "Advisor": "George Guerrero"
+  },
+  {
+    "TxnId": 94070,
+    "FirmId": 205,
+    "AccountId": 10004667,
+    "TxnDate": "2025-03-03",
+    "TxnType": "Sell",
+    "Symbol": "MUB",
+    "Amount": 900000,
+    "Advisor": "George Guerrero"
+  },
+  {
+    "TxnId": 94071,
+    "FirmId": 205,
+    "AccountId": 10004667,
+    "TxnDate": "2025-06-26",
+    "TxnType": "Sell",
+    "Symbol": "QQQ",
+    "Amount": 486597.14,
+    "Advisor": "George Guerrero"
+  },
+  {
+    "TxnId": 94072,
+    "FirmId": 415,
+    "AccountId": 10004669,
+    "TxnDate": "2026-07-17",
+    "TxnType": "Buy",
+    "Symbol": "BND",
+    "Amount": 45202.1,
+    "Advisor": "Tomas Rivera"
+  },
+  {
+    "TxnId": 94073,
+    "FirmId": 310,
+    "AccountId": 10004670,
+    "TxnDate": "2026-07-11",
+    "TxnType": "Buy",
+    "Symbol": "JPM",
+    "Amount": 482529.23,
+    "Advisor": "David Chen"
+  },
+  {
+    "TxnId": 94074,
+    "FirmId": 205,
+    "AccountId": 10004671,
+    "TxnDate": "2026-07-17",
+    "TxnType": "Buy",
+    "Symbol": "USFR",
+    "Amount": 900000,
+    "Advisor": "Aisha Khan"
+  },
+  {
+    "TxnId": 94075,
+    "FirmId": 101,
+    "AccountId": 10004673,
+    "TxnDate": "2026-08-03",
+    "TxnType": "Fee",
+    "Symbol": "FEE",
+    "Amount": 412.81,
+    "Advisor": "Maria Lopez"
+  },
+  {
+    "TxnId": 94076,
+    "FirmId": 101,
+    "AccountId": 10004673,
+    "TxnDate": "2026-07-01",
+    "TxnType": "Fee",
+    "Symbol": "FEE",
+    "Amount": 1791.67,
+    "Advisor": "Maria Lopez"
+  },
+  {
+    "TxnId": 94077,
+    "FirmId": 101,
+    "AccountId": 10004674,
+    "TxnDate": "2026-04-06",
+    "TxnType": "Buy",
+    "Symbol": "SCHD",
+    "Amount": 196217.06,
+    "Advisor": "John Snow"
+  },
+  {
+    "TxnId": 94078,
+    "FirmId": 101,
+    "AccountId": 10004674,
+    "TxnDate": "2025-12-22",
+    "TxnType": "Buy",
+    "Symbol": "MSFT",
+    "Amount": 207762.21,
+    "Advisor": "John Snow"
+  },
+  {
+    "TxnId": 94079,
+    "FirmId": 101,
+    "AccountId": 10004675,
+    "TxnDate": "2026-08-02",
+    "TxnType": "Deposit",
+    "Symbol": "CASH",
+    "Amount": 68626.41,
+    "Advisor": "Maria Lopez"
+  },
+  {
+    "TxnId": 94080,
+    "FirmId": 415,
+    "AccountId": 10004676,
+    "TxnDate": "2026-07-31",
+    "TxnType": "Dividend",
+    "Symbol": "VTV",
+    "Amount": 2859.11,
+    "Advisor": "Priya Nair"
+  },
+  {
+    "TxnId": 94081,
+    "FirmId": 415,
+    "AccountId": 10004676,
+    "TxnDate": "2026-07-30",
+    "TxnType": "Fee",
+    "Symbol": "FEE",
+    "Amount": 255.75,
+    "Advisor": "Priya Nair"
+  },
+  {
+    "TxnId": 94082,
+    "FirmId": 101,
+    "AccountId": 10004677,
+    "TxnDate": "2025-11-16",
+    "TxnType": "Fee",
+    "Symbol": "FEE",
+    "Amount": 464.95,
+    "Advisor": "Maria Lopez"
+  },
+  {
+    "TxnId": 94083,
+    "FirmId": 101,
+    "AccountId": 10004677,
+    "TxnDate": "2026-01-12",
+    "TxnType": "Deposit",
+    "Symbol": "CASH",
+    "Amount": 5679.29,
+    "Advisor": "Maria Lopez"
+  },
+  {
+    "TxnId": 94084,
+    "FirmId": 101,
+    "AccountId": 10004677,
+    "TxnDate": "2025-11-29",
+    "TxnType": "Deposit",
+    "Symbol": "CASH",
+    "Amount": 5024.63,
+    "Advisor": "Maria Lopez"
+  },
+  {
+    "TxnId": 94085,
+    "FirmId": 310,
+    "AccountId": 10004680,
+    "TxnDate": "2026-07-17",
+    "TxnType": "Withdrawal",
+    "Symbol": "CASH",
+    "Amount": 133335.55,
+    "Advisor": "David Chen"
+  },
+  {
+    "TxnId": 94086,
+    "FirmId": 520,
+    "AccountId": 10004682,
+    "TxnDate": "2026-07-02",
+    "TxnType": "Buy",
+    "Symbol": "IEF",
+    "Amount": 468295.06,
+    "Advisor": "Grace Kim"
+  },
+  {
+    "TxnId": 94087,
+    "FirmId": 520,
+    "AccountId": 10004682,
+    "TxnDate": "2026-08-05",
+    "TxnType": "Buy",
+    "Symbol": "IEF",
+    "Amount": 900000,
+    "Advisor": "Grace Kim"
+  },
+  {
+    "TxnId": 94088,
+    "FirmId": 520,
+    "AccountId": 10004682,
+    "TxnDate": "2026-07-04",
+    "TxnType": "Deposit",
+    "Symbol": "CASH",
+    "Amount": 350000,
+    "Advisor": "Grace Kim"
+  },
+  {
+    "TxnId": 94089,
+    "FirmId": 520,
+    "AccountId": 10004683,
+    "TxnDate": "2025-02-23",
+    "TxnType": "Buy",
+    "Symbol": "IEF",
+    "Amount": 6756.1,
+    "Advisor": "Grace Kim"
+  },
+  {
+    "TxnId": 94090,
+    "FirmId": 520,
+    "AccountId": 10004684,
+    "TxnDate": "2026-08-04",
+    "TxnType": "Fee",
+    "Symbol": "FEE",
+    "Amount": 16819.92,
+    "Advisor": "Samuel Osei"
+  },
+  {
+    "TxnId": 94091,
+    "FirmId": 415,
+    "AccountId": 10004685,
+    "TxnDate": "2026-08-03",
+    "TxnType": "Dividend",
+    "Symbol": "TLT",
+    "Amount": 6909.18,
+    "Advisor": "Priya Nair"
+  },
+  {
+    "TxnId": 94092,
+    "FirmId": 101,
+    "AccountId": 10004689,
+    "TxnDate": "2025-01-05",
+    "TxnType": "Withdrawal",
+    "Symbol": "CASH",
+    "Amount": 220000,
+    "Advisor": "John Snow"
+  },
+  {
+    "TxnId": 94093,
+    "FirmId": 101,
+    "AccountId": 10004689,
+    "TxnDate": "2026-05-10",
+    "TxnType": "Dividend",
+    "Symbol": "GOOGL",
+    "Amount": 50000,
+    "Advisor": "John Snow"
+  },
+  {
+    "TxnId": 94094,
+    "FirmId": 205,
+    "AccountId": 10004690,
+    "TxnDate": "2026-05-30",
+    "TxnType": "Sell",
+    "Symbol": "VBK",
+    "Amount": 900000,
+    "Advisor": "Aisha Khan"
+  },
+  {
+    "TxnId": 94095,
+    "FirmId": 205,
+    "AccountId": 10004691,
+    "TxnDate": "2025-06-28",
+    "TxnType": "Withdrawal",
+    "Symbol": "CASH",
+    "Amount": 64289.85,
+    "Advisor": "George Guerrero"
+  },
+  {
+    "TxnId": 94096,
+    "FirmId": 205,
+    "AccountId": 10004691,
+    "TxnDate": "2026-07-20",
+    "TxnType": "Buy",
+    "Symbol": "MUB",
+    "Amount": 307341.87,
+    "Advisor": "George Guerrero"
+  },
+  {
+    "TxnId": 94097,
+    "FirmId": 205,
+    "AccountId": 10004691,
+    "TxnDate": "2026-07-02",
+    "TxnType": "Deposit",
+    "Symbol": "CASH",
+    "Amount": 113383.45,
+    "Advisor": "George Guerrero"
+  },
+  {
+    "TxnId": 94098,
+    "FirmId": 310,
+    "AccountId": 10004692,
+    "TxnDate": "2025-07-19",
+    "TxnType": "Deposit",
+    "Symbol": "CASH",
+    "Amount": 138442.3,
+    "Advisor": "David Chen"
+  },
+  {
+    "TxnId": 94099,
+    "FirmId": 310,
+    "AccountId": 10004692,
+    "TxnDate": "2025-11-28",
+    "TxnType": "Dividend",
+    "Symbol": "IEF",
+    "Amount": 50000,
+    "Advisor": "David Chen"
+  },
+  {
+    "TxnId": 94100,
+    "FirmId": 310,
+    "AccountId": 10004692,
+    "TxnDate": "2025-08-06",
+    "TxnType": "Sell",
+    "Symbol": "VTI",
+    "Amount": 900000,
+    "Advisor": "David Chen"
+  },
+  {
+    "TxnId": 94101,
+    "FirmId": 101,
+    "AccountId": 10004697,
+    "TxnDate": "2026-07-10",
+    "TxnType": "Deposit",
+    "Symbol": "CASH",
+    "Amount": 4664.63,
+    "Advisor": "John Snow"
+  },
+  {
+    "TxnId": 94102,
+    "FirmId": 520,
+    "AccountId": 10004699,
+    "TxnDate": "2026-07-12",
+    "TxnType": "Deposit",
+    "Symbol": "CASH",
+    "Amount": 350000,
+    "Advisor": "Grace Kim"
+  },
+  {
+    "TxnId": 94103,
+    "FirmId": 520,
+    "AccountId": 10004700,
+    "TxnDate": "2026-07-18",
+    "TxnType": "Fee",
+    "Symbol": "FEE",
+    "Amount": 369.86,
+    "Advisor": "Samuel Osei"
+  },
+  {
+    "TxnId": 94104,
+    "FirmId": 520,
+    "AccountId": 10004702,
+    "TxnDate": "2026-07-03",
+    "TxnType": "Sell",
+    "Symbol": "SCHD",
+    "Amount": 11467.44,
+    "Advisor": "Grace Kim"
+  },
+  {
+    "TxnId": 94105,
+    "FirmId": 520,
+    "AccountId": 10004702,
+    "TxnDate": "2026-07-15",
+    "TxnType": "Buy",
+    "Symbol": "SCHD",
+    "Amount": 17865.51,
+    "Advisor": "Grace Kim"
+  },
+  {
+    "TxnId": 94106,
+    "FirmId": 520,
+    "AccountId": 10004702,
+    "TxnDate": "2026-06-30",
+    "TxnType": "Buy",
+    "Symbol": "BND",
+    "Amount": 13194.37,
+    "Advisor": "Grace Kim"
+  },
+  {
+    "TxnId": 94107,
+    "FirmId": 520,
+    "AccountId": 10004702,
+    "TxnDate": "2026-06-27",
+    "TxnType": "Buy",
+    "Symbol": "SCHD",
+    "Amount": 11784.51,
+    "Advisor": "Grace Kim"
+  }
 ]
+

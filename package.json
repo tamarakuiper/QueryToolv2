@@ -1,0 +1,9 @@
+{
+  "name": "querytoolv2-main",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Unit tests for QueryTool standalone web app",
+  "scripts": {
+    "test": "node --test \"tests/*.test.js\""
+  }
+}

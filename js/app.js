@@ -815,6 +815,30 @@ function stopRickrollMusic() {
     const p = n => String(n).padStart(2, '0');
     return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`;
   }
+  const WEEKDAY_LABELS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  function recurrenceLabel(item) {
+    const recur = item && item.recurrence ? item.recurrence : 'once';
+    if (recur === 'once') return 'once';
+    if (recur === 'daily') return 'daily';
+    if (recur === 'weekly') {
+      const days = (item.recurrenceRule && Array.isArray(item.recurrenceRule.weekdays) ? item.recurrenceRule.weekdays : [])
+        .map(n => Number(n)).filter(n => Number.isInteger(n) && n >= 0 && n <= 6)
+        .sort((a, b) => a - b);
+      if (!days.length) return 'weekly';
+      return 'weekly (' + days.map(d => WEEKDAY_LABELS[d]).join(', ') + ')';
+    }
+    if (recur === 'monthly') {
+      const rule = item.recurrenceRule || {};
+      if (rule.useLastDay) return 'monthly (last day)';
+      return 'monthly (day ' + (Number(rule.dayOfMonth) || new Date(item.runAt).getDate()) + ')';
+    }
+    if (recur === 'quarterly') {
+      const rule = item.recurrenceRule || {};
+      if (rule.useLastDay) return 'quarterly (last day, Jan/Apr/Jul/Oct)';
+      return 'quarterly (day ' + (Number(rule.dayOfMonth) || new Date(item.runAt).getDate()) + ', Jan/Apr/Jul/Oct)';
+    }
+    return recur;
+  }
   function openScheduleModal(spec) {
     const user = QT.currentUser();
     const firm = QT.firmById(spec.firmId);
@@ -829,7 +853,31 @@ function stopRickrollMusic() {
         <label class="field"><span class="lbl">Run at</span>
           <input type="datetime-local" id="mWhen" value="${esc(defaultWhen)}"></label>
         <label class="field"><span class="lbl">Repeat</span>
-          <select id="mRecur"><option value="once">Once</option><option value="daily">Daily</option></select></label>
+          <select id="mRecur">
+            <option value="once">Once</option>
+            <option value="daily">Daily</option>
+            <option value="weekly">Weekly</option>
+            <option value="monthly">Monthly</option>
+            <option value="quarterly">Quarterly</option>
+          </select></label>
+        <div class="field hidden" id="mWeeklyWrap"><span class="lbl">Weekly days</span>
+          <div class="checks">
+            ${WEEKDAY_LABELS.map((d, i) => `<label class="chk"><input type="checkbox" class="mWeekday" value="${i}" ${i === whenDate.getDay() ? 'checked' : ''}> ${d}</label>`).join('')}
+          </div>
+          <span class="muted small">Pick one or more weekdays.</span>
+        </div>
+        <div class="field hidden" id="mMonthlyWrap">
+          <label class="chk"><input type="checkbox" id="mMonthlyLast"> Run on last day of month</label>
+          <label class="field" style="margin-top:8px;"><span class="lbl">Day of month</span>
+            <input type="number" id="mMonthlyDay" min="1" max="31" value="${whenDate.getDate()}"></label>
+          <span class="muted small">Days 29-31 automatically run on the last valid calendar day.</span>
+        </div>
+        <div class="field hidden" id="mQuarterlyWrap">
+          <label class="chk"><input type="checkbox" id="mQuarterlyLast"> Run on last day of quarter month</label>
+          <label class="field" style="margin-top:8px;"><span class="lbl">Day of quarter month</span>
+            <input type="number" id="mQuarterlyDay" min="1" max="31" value="${whenDate.getDate()}"></label>
+          <span class="muted small">Quarterly cadence uses calendar quarters only: Jan/Apr/Jul/Oct.</span>
+        </div>
         <label class="field"><span class="lbl">Save report to</span>
           <input type="text" id="mLoc" value="${esc(loc)}"></label>
         <label class="field"><span class="lbl">Report name</span>
@@ -845,6 +893,28 @@ function stopRickrollMusic() {
     $('#mClose', overlay).addEventListener('click', close);
     $('#mCancel', overlay).addEventListener('click', close);
     overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
+
+    const recurSel = $('#mRecur', overlay);
+    const weeklyWrap = $('#mWeeklyWrap', overlay);
+    const monthlyWrap = $('#mMonthlyWrap', overlay);
+    const quarterlyWrap = $('#mQuarterlyWrap', overlay);
+    const monthlyLast = $('#mMonthlyLast', overlay);
+    const monthlyDay = $('#mMonthlyDay', overlay);
+    const quarterlyLast = $('#mQuarterlyLast', overlay);
+    const quarterlyDay = $('#mQuarterlyDay', overlay);
+    function syncRecurUi() {
+      const recur = recurSel.value;
+      weeklyWrap.classList.toggle('hidden', recur !== 'weekly');
+      monthlyWrap.classList.toggle('hidden', recur !== 'monthly');
+      quarterlyWrap.classList.toggle('hidden', recur !== 'quarterly');
+      monthlyDay.disabled = !!monthlyLast.checked;
+      quarterlyDay.disabled = !!quarterlyLast.checked;
+    }
+    recurSel.addEventListener('change', syncRecurUi);
+    monthlyLast.addEventListener('change', syncRecurUi);
+    quarterlyLast.addEventListener('change', syncRecurUi);
+    syncRecurUi();
+
     $('#mSave', overlay).addEventListener('click', () => {
       const whenVal = $('#mWhen', overlay).value;
       if (!whenVal) { toast('Pick a date and time.', { tone: 'bad' }); return; }
@@ -853,9 +923,27 @@ function stopRickrollMusic() {
         toast('Pick a time outside business hours (' + Policy.workStatus().windowLabel + ').', { tone: 'bad', title: 'Not allowed during business hours' });
         return;
       }
+      const recurrence = recurSel.value;
+      let recurrenceRule = null;
+      if (recurrence === 'weekly') {
+        const weekdays = $$('.mWeekday:checked', overlay).map(cb => Number(cb.value));
+        if (!weekdays.length) { toast('Pick at least one weekday for weekly recurrence.', { tone: 'bad' }); return; }
+        recurrenceRule = { weekdays };
+      }
+      if (recurrence === 'monthly') {
+        const useLastDay = !!monthlyLast.checked;
+        const dayOfMonth = Math.max(1, Math.min(31, Number(monthlyDay.value) || new Date(whenVal).getDate()));
+        recurrenceRule = { useLastDay, dayOfMonth };
+      }
+      if (recurrence === 'quarterly') {
+        const useLastDay = !!quarterlyLast.checked;
+        const dayOfMonth = Math.max(1, Math.min(31, Number(quarterlyDay.value) || new Date(whenVal).getDate()));
+        recurrenceRule = { useLastDay, dayOfMonth, quarterMode: 'calendar' };
+      }
       const sched = QT.createSchedule(Object.assign({}, spec, {
         runAt: new Date(whenVal).toISOString(),
-        recurrence: $('#mRecur', overlay).value,
+        recurrence,
+        recurrenceRule,
         reportLocation: $('#mLoc', overlay).value.trim() || loc,
         name: $('#mName', overlay).value.trim() || spec.name
       }));
@@ -879,7 +967,7 @@ function stopRickrollMusic() {
         <td>${esc(s.name)}</td>
         <td>${esc(firmLabel(s.firmId))}</td>
         <td>${esc(new Date(s.runAt).toLocaleString())}</td>
-        <td>${esc(s.recurrence)}</td>
+        <td>${esc(recurrenceLabel(s))}</td>
         <td><code>${esc(s.reportLocation)}</code></td>
         <td><span class="badge ${statusBadge}">${esc(statusText)}</span></td>
         <td class="row-actions">
@@ -915,11 +1003,14 @@ function stopRickrollMusic() {
   /* ---------- reports view ---------- */
   function renderReports() {
     const user = QT.currentUser();
-    const list = QT.reportsFor(user);
+    const fullList = QT.reportsFor(user);
+    const filter = App.reportRecurrenceFilter || 'all';
+    const list = filter === 'all' ? fullList : fullList.filter(r => (r.recurrence || 'once') === filter);
     const rows = list.map(r => {
       const firm = QT.firmById(r.firmId);
       return `<tr>
         <td><a href="#/report/${esc(r.id)}">${esc(r.name)}</a></td>
+        <td>${esc(recurrenceLabel(r))}</td>
         <td><code>${esc(r.location)}</code></td>
         <td>${esc(firmLabel(r.firmId))}</td>
         <td>${esc(new Date(r.at).toLocaleString())}</td>
@@ -935,15 +1026,31 @@ function stopRickrollMusic() {
 
     const content = h(`<div class="stack">
       <div class="page-head"><div><h1>Reports</h1>
-        <p class="muted">Saved output from scheduled runs. Reports flagged <span class="badge warn">PII</span> contain personal data.</p></div></div>
+        <p class="muted">Saved output from scheduled runs. Reports flagged <span class="badge warn">PII</span> contain personal data.</p></div>
+        <label class="field" style="min-width:220px;"><span class="lbl">Cadence</span>
+          <select id="reportRecurFilter">
+            <option value="all" ${filter === 'all' ? 'selected' : ''}>All cadences</option>
+            <option value="once" ${filter === 'once' ? 'selected' : ''}>Once</option>
+            <option value="daily" ${filter === 'daily' ? 'selected' : ''}>Daily</option>
+            <option value="weekly" ${filter === 'weekly' ? 'selected' : ''}>Weekly</option>
+            <option value="monthly" ${filter === 'monthly' ? 'selected' : ''}>Monthly</option>
+            <option value="quarterly" ${filter === 'quarterly' ? 'selected' : ''}>Quarterly</option>
+          </select>
+        </label>
+      </div>
       <div class="panel">
         ${list.length ? `<div class="table-wrap"><table class="data"><thead><tr>
-          <th>Report</th><th>Location</th><th>Firm</th><th>Generated</th><th class="right">Rows</th><th>PII</th><th>Actions</th>
+          <th>Report</th><th>Cadence</th><th>Location</th><th>Firm</th><th>Generated</th><th class="right">Rows</th><th>PII</th><th>Actions</th>
         </tr></thead><tbody>${rows}</tbody></table></div>`
         : '<div class="placeholder">No reports yet. Schedule a query (or use “Run now” on a schedule) to generate one.</div>'}
       </div>
     </div>`);
     shell('reports', content);
+
+    $('#reportRecurFilter', content).addEventListener('change', (e) => {
+      App.reportRecurrenceFilter = e.target.value;
+      renderReports();
+    });
 
     $$('[data-csv]', content).forEach(b => b.addEventListener('click', () => {
       const r = QT.getReport(b.dataset.csv);
