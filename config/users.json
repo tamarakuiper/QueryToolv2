@@ -3,9 +3,9 @@
   "users": [
     {
       "id": "u-001",
-      "email": "ops@demo.com",
+      "email": "ops_krystal@demo.com",
       "password": "demo123",
-      "displayName": "Olivia Ops",
+      "displayName": "Krystal Ops",
       "enabled": true,
       "isAdmin": false,
       "groups": [
@@ -22,9 +22,9 @@
     },
     {
       "id": "u-002",
-      "email": "advisor@demo.com",
+      "email": "advisor_anthony@demo.com",
       "password": "demo123",
-      "displayName": "Aaron Advisor",
+      "displayName": "Anthony Advisor",
       "enabled": true,
       "isAdmin": false,
       "groups": [
@@ -39,9 +39,9 @@
     },
     {
       "id": "u-003",
-      "email": "compliance@demo.com",
+      "email": "compliance_tammy@demo.com",
       "password": "demo123",
-      "displayName": "Casey Compliance",
+      "displayName": "Tammy Compliance",
       "enabled": true,
       "isAdmin": false,
       "groups": [
@@ -59,9 +59,31 @@
     },
     {
       "id": "u-004",
-      "email": "admin@demo.com",
+      "email": "admin_tamara@demo.com",
       "password": "admin123",
-      "displayName": "Adrian Admin",
+      "displayName": "Tamara Admin",
+      "enabled": true,
+      "isAdmin": true,
+      "groups": [
+        "operations",
+        "advisors",
+        "compliance",
+        "admins"
+      ],
+      "firms": [
+        101,
+        205,
+        310,
+        415,
+        520
+      ],
+      "reportLocation": "/reports/admin"
+    },
+    {
+      "id": "u-005",
+      "email": "admin_natmarie@demo.com",
+      "password": "admin123",
+      "displayName": "Natmarie Admin",
       "enabled": true,
       "isAdmin": true,
       "groups": [

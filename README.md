@@ -24,6 +24,26 @@ python -m http.server 8000
 Then open <http://localhost:8000/index.html>. (Alternatives: `npx serve -l 8000`,
 the VS Code "Live Server" extension, or any static host.)
 
+## Unit testing
+
+The project now includes an automated unit test suite using Node's built-in
+test runner (no extra framework required).
+
+Run all tests:
+
+```bash
+npm test
+```
+
+Current unit coverage includes:
+
+- `js/sqlengine.js` (filters, aggregates, ordering/limits, wildcard/global firm scope)
+- `js/sqlllm.js` (NL→SQL generation heuristics and heavy-query join detection)
+- `js/policy.js` (business-hours gating and mission-critical table logic)
+- `js/pii.js` (PII category detection and explicit metadata overrides)
+- `js/format.js` (formatting and CSV escaping)
+- `js/store.js` scheduling behavior (weekly/monthly/quarterly recurrence advancement)
+
 > **Full operator & admin guide:** see [docs/GUIDE.md](docs/GUIDE.md) — how to run
 > on any machine (Windows/macOS/Linux), what every function and clickable control
 > does, and every tweak an administrator can make.
@@ -124,14 +144,28 @@ see governance above).
 ## Scheduling & Reports
 
 Any query (or an SQL-Assistant query) can be scheduled to run at a **date + time**,
-optionally **daily**. Results are saved to the signed-in user's **report location**
-(`reportLocation` in `config/users.json`, e.g. `/reports/compliance`).
+either once or on a recurring cadence: **daily, weekly, monthly, or quarterly**.
+Results are saved to the signed-in user's **report location** (`reportLocation` in
+`config/users.json`, e.g. `/reports/compliance`).
+
+Recurrence semantics in this standalone demo:
+
+- **Weekly**: choose one or more weekdays (for example Mon/Wed/Fri).
+- **Monthly**: choose a day-of-month (1-31) or "last day of month".
+- **Quarterly**: calendar quarters only (**Jan/Apr/Jul/Oct**), with a chosen
+  day-of-month or "last day of quarter month".
+- For monthly/quarterly day-based schedules, days 29-31 are automatically
+  clamped to the last valid calendar day when needed (for example day 31 in
+  February runs on Feb 28/29).
+- Missed-run behavior is unchanged: when the app is running, due schedules fire;
+  this demo does not add a server-side catch-up worker.
 
 - A small in-browser scheduler ticks every ~12s and runs due schedules — so a
   schedule set a minute out actually fires during a demo.
 - When a report is generated, the signed-in user sees a **toast notification**
   ("Report generated → &lt;location&gt;") with a **View** shortcut.
-- Saved reports live under **Reports** (view, re-export CSV, or delete).
+- Saved reports live under **Reports** (view, re-export CSV, delete), with a
+  **Cadence** column and filter (Once/Daily/Weekly/Monthly/Quarterly).
 - Schedules and reports persist in `localStorage` (keys `qt.schedules`, `qt.reports`).
 
 > This is a client-side demo, so "saving to a report location" records the report
