@@ -575,17 +575,23 @@ function stopRickrollMusic() {
       : (scope === 'all')
         ? `<span class="scope-chip">🌐 all firms</span>`
         : `<span class="scope-chip firm">${esc(firmLabel(scope))}</span>`;
+    const revealControl = pii.isPII ? immutaRevealButton() : '';
+    const exportControl = csvOn
+      ? `<button class="btn ghost" id="csvBtn"${pii.isPII ? ' disabled title="Reveal PII before exporting"' : ''}>Export CSV</button>`
+      : '';
     const head = h(`<div class="result-head">
       <div><h3 class="panel-title">${esc(title)}</h3>
         <span class="muted small">${res.meta.rowCount} rows · ${res.meta.durationMs} ms${res.meta.truncated ? ' · truncated' : ''}</span></div>
-      <div class="result-head-right">${scopeChip}${csvOn ? '<button class="btn ghost" id="csvBtn">Export CSV</button>' : ''}</div>
+      <div class="result-head-right">${scopeChip}${revealControl}${exportControl}</div>
     </div>`);
     panel.appendChild(head);
     // Final-run PII indication: explicitly confirm whether it contains PII or not.
     panel.appendChild(pii.isPII ? piiBanner(pii) : noPiiNote());
-    panel.appendChild(buildTable(res.columns, res.rows));
 
-    if (csvOn) $('#csvBtn', panel).addEventListener('click', () => {
+    const csvButton = csvOn ? $('#csvBtn', panel) : null;
+    mountProtectedTable(panel, res.columns, res.rows, pii, $('[data-pii-reveal]', panel), csvButton);
+
+    if (csvButton) csvButton.addEventListener('click', () => {
       const name = (def ? def.id : 'query') + '-' + Date.now() + '.csv';
       Fmt.downloadCSV(name, res.columns, res.rows);
     });
@@ -595,8 +601,44 @@ function stopRickrollMusic() {
     return h(`<div class="pii-banner">
       <span class="pii-ico">🔒</span>
       <div><strong>Contains PII</strong>
-        <span class="muted small">This result set includes personally identifiable information: ${esc(pii.categories.join(', '))}. Handle and export with care.</span></div>
+        <span class="muted small">This result set includes personally identifiable information: ${esc(pii.categories.join(', '))}. PII columns are masked until revealed through Immuta.</span></div>
     </div>`);
+  }
+  function immutaRevealButton() {
+    return `<button class="btn immuta-reveal" type="button" data-pii-reveal aria-pressed="false" title="Reveal masked PII columns">
+      <img src="assets/immuta-logo.svg" alt="Immuta"><span>Reveal PII</span>
+    </button>`;
+  }
+  function mountProtectedTable(panel, columns, rows, pii, revealButton, exportButton) {
+    const host = h('<div class="pii-table-host"></div>');
+    panel.appendChild(host);
+    const render = masked => host.replaceChildren(buildTable(columns, rows, { maskPii: masked }));
+
+    if (!pii || !pii.isPII) {
+      render(false);
+      return;
+    }
+
+    render(true);
+    if (exportButton) {
+      exportButton.disabled = true;
+      exportButton.title = 'Reveal PII before exporting';
+    }
+    if (!revealButton) return;
+
+    revealButton.addEventListener('click', () => {
+      render(false);
+      revealButton.classList.add('revealed');
+      revealButton.disabled = true;
+      revealButton.setAttribute('aria-pressed', 'true');
+      const label = $('span', revealButton);
+      if (label) label.textContent = 'PII revealed';
+      revealButton.title = 'PII columns are visible';
+      if (exportButton) {
+        exportButton.disabled = false;
+        exportButton.removeAttribute('title');
+      }
+    }, { once: true });
   }
   function noPiiNote() {
     return h(`<div class="pii-clear"><span class="pii-ok">✓</span> No PII detected in this result set.</div>`);
@@ -621,8 +663,9 @@ function stopRickrollMusic() {
     return PII.detect(fields.map(f => ({ field: f, label: f, pii: cols[f].pii, piiCategory: cols[f].piiCategory })));
   }
 
-  function buildTable(columns, rows) {
+  function buildTable(columns, rows, options) {
     if (!rows.length) return h('<div class="placeholder">No rows matched.</div>');
+    const opts = options || {};
     const numeric = t => ['currency', 'number', 'integer'].includes(t);
     const thead = `<tr>${columns.map(c => {
       const isPii = !!PII.classify(c);
@@ -630,8 +673,13 @@ function stopRickrollMusic() {
     }).join('')}</tr>`;
     const tbody = rows.map(r => `<tr>${columns.map(c => {
       const v = r[c.field];
+      const isPii = !!PII.classify(c);
+      const align = numeric(c.type) ? 'right' : '';
+      if (opts.maskPii && isPii) {
+        return `<td class="${align} pii-cell-masked"><span class="pii-mask" aria-label="Masked personally identifiable information">${PII.maskValue(v)}</span></td>`;
+      }
       if (c.type === 'badge') return `<td><span class="badge ${Fmt.badgeTone(v)}">${esc(v)}</span></td>`;
-      return `<td class="${numeric(c.type) ? 'right' : ''}">${esc(Fmt.formatValue(v, c.type))}</td>`;
+      return `<td class="${align}">${esc(Fmt.formatValue(v, c.type))}</td>`;
     }).join('')}</tr>`).join('');
     return h(`<div class="table-wrap"><table class="data"><thead>${thead}</thead><tbody>${tbody}</tbody></table></div>`);
   }
@@ -1064,20 +1112,22 @@ function stopRickrollMusic() {
     const r = QT.getReport(id);
     if (!r) { const c = h('<div class="stack"><a class="back" href="#/reports">← Reports</a><p class="error">Report not found.</p></div>'); return shell('reports', c); }
     const firm = QT.firmById(r.firmId);
+    const pii = (r.pii && r.pii.isPII) ? r.pii : PII.detect(r.columns);
     const content = h(`<div class="stack">
       <a class="back" href="#/reports">← Reports</a>
       <div class="page-head">
         <div><h1>${esc(r.name)}</h1>
           <p class="muted">${esc(firmLabel(r.firmId))} · saved to <code>${esc(r.location)}</code> · ${esc(new Date(r.at).toLocaleString())} · ${esc(r.meta.rowCount)} rows</p></div>
-        <button class="btn ghost" id="dlCsv">Export CSV</button>
+        <div class="page-head-actions">${pii.isPII ? immutaRevealButton() : ''}<button class="btn ghost" id="dlCsv"${pii.isPII ? ' disabled title="Reveal PII before exporting"' : ''}>Export CSV</button></div>
       </div>
       <div class="panel" id="reportPanel"></div>
     </div>`);
     shell('reports', content);
     const panel = $('#reportPanel', content);
-    if (r.pii && r.pii.isPII) panel.appendChild(piiBanner(r.pii));
-    panel.appendChild(buildTable(r.columns, r.rows));
-    $('#dlCsv', content).addEventListener('click', () => Fmt.downloadCSV((r.name || 'report').replace(/[^\w.-]+/g, '_') + '.csv', r.columns, r.rows));
+    if (pii.isPII) panel.appendChild(piiBanner(pii));
+    const exportButton = $('#dlCsv', content);
+    mountProtectedTable(panel, r.columns, r.rows, pii, $('[data-pii-reveal]', content), exportButton);
+    exportButton.addEventListener('click', () => Fmt.downloadCSV((r.name || 'report').replace(/[^\w.-]+/g, '_') + '.csv', r.columns, r.rows));
   }
 
   /* ---------- execution log / analytics ---------- */

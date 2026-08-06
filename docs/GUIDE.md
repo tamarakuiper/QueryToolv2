@@ -119,7 +119,9 @@ runner.
 - **PII validation:** before you run, if the report selects name/address-type
   fields it shows a **⚠️ May contain PII** heads-up. After running, the result
   states it explicitly — **🔒 Contains PII** (with the categories and `PII`
-  column tags) or **✓ No PII detected**.
+  column tags) or **✓ No PII detected**. PII columns remain masked until the
+  result's Immuta **Reveal PII** button is clicked; CSV export is gated by the
+  same action. Results without PII do not show the Immuta button.
 
 ### SQL Assistant
 

@@ -218,7 +218,11 @@ PII is flagged before and after a run:
   fields, a **⚠️ May contain PII** heads-up appears with the categories.
 - **After running** — the result states it explicitly: **🔒 Contains PII**
   (categories + `PII` column tags) or **✓ No PII detected**.
-- Saved reports carry a **PII** badge, and the Execution Log records PII per run.
+- When PII is present, only those columns render as masked placeholders. An
+  **Immuta Reveal PII** button appears for that result set; clicking it reveals
+  the values and enables CSV export. Non-PII results never show the button.
+- Saved reports carry the same masking/reveal behavior plus a **PII** badge, and
+  the Execution Log records PII per run.
 
 Categories detected: Name, Address, Email, Phone, DOB, SSN.
 

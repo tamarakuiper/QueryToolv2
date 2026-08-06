@@ -104,7 +104,7 @@ code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: .9em; 
 .result-panel { min-height: 200px; }
 .placeholder { color: var(--muted); text-align: center; padding: 48px 20px; font-size: 14px; }
 .result-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 14px; }
-.result-head-right { display: flex; align-items: center; gap: 10px; }
+.result-head-right, .page-head-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
 .scope-chip { font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 20px; background: var(--accent-bg); color: var(--accent-fg); white-space: nowrap; }
 .scope-chip.firm { background: var(--accent-soft); color: var(--ink-soft); }
 .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; }
@@ -194,6 +194,14 @@ pre.json { background: #1c1c1c; color: #e6e6e6; border-radius: 10px; padding: 18
 .pii-banner.may strong { color: var(--warn-fg); }
 .pii-clear { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--good-fg); background: var(--good-bg); border: 1px solid #bfe3cb; border-radius: 10px; padding: 9px 14px; margin-bottom: 14px; }
 .pii-ok { font-weight: 800; }
+.immuta-reveal { display: inline-flex; align-items: center; gap: 9px; background: #fff; border-color: #b8bbc3; padding: 7px 12px; }
+.immuta-reveal:hover { border-color: #13151e; box-shadow: 0 2px 8px rgba(19, 21, 30, .10); }
+.immuta-reveal img { display: block; width: 72px; height: 18px; object-fit: contain; }
+.immuta-reveal span { white-space: nowrap; }
+.immuta-reveal.revealed { background: var(--good-bg); border-color: #bfe3cb; color: var(--good-fg); }
+.immuta-reveal.revealed[disabled] { opacity: 1; cursor: default; }
+.pii-cell-masked { background: #fbf7ec; }
+.pii-mask { color: var(--warn-fg); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-weight: 700; letter-spacing: .08em; user-select: none; }
 
 /* governance (heavy-query gating) */
 .gov-banner { display: flex; align-items: flex-start; gap: 12px; border-radius: 10px; padding: 12px 14px; margin-bottom: 12px; }

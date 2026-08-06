@@ -41,5 +41,7 @@
     return { isPII: fields.length > 0, fields, categories: [...categories] };
   }
 
-  global.PII = { detect, classify };
+  function maskValue() { return '••••••••'; }
+
+  global.PII = { detect, classify, maskValue };
 })(window);

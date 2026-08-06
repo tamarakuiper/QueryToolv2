@@ -31,3 +31,12 @@ test('PII explicit opt-in overrides detection category', () => {
   assert.equal(res.categories[0], 'Sensitive');
   assert.equal(res.fields[0].category, 'Sensitive');
 });
+
+
+test('PII maskValue never exposes the original value', () => {
+  const { window } = loadScripts(['js/pii.js']);
+  const masked = window.PII.maskValue('tamara@example.com');
+
+  assert.equal(masked, '••••••••');
+  assert.equal(masked.includes('tamara'), false);
+});
